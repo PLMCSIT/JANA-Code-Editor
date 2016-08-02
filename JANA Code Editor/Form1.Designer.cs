@@ -57,6 +57,7 @@
             this.syntaxBox.Document = this.document;
             this.syntaxBox.FontName = "Consolas";
             this.syntaxBox.FontSize = 12F;
+            this.syntaxBox.HighLightActiveLine = true;
             this.syntaxBox.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.syntaxBox.InfoTipCount = 1;
             this.syntaxBox.InfoTipPosition = null;

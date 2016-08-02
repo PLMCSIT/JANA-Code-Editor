@@ -75,8 +75,8 @@ namespace JANA_Code_Editor
         private string stringType = "^(\").*(\")$";
 
         // ALL OPERATORS
-        private string operators = "\\+|\\-|/|%|\\*\\^|~|@@|\\|\\||=|==|==!|>>|<<|>>=|" +
-            "<<=|\\+\\+|\\-\\-|\\(|\\)|\\{|\\}|\\[|\\]";
+        private string operators = "\\+|\\-|/|%|\\*\\^|~|@@|\\$\\$|\\$|=|==|==!|>>|<<|>>=|" +
+            "<<=|\\+\\+|\\-\\-|\\(|\\)|\\{|\\}|\\[|\\]|-!|\\-\\->|;";
 
         // SEPERATORS
         private string seperators = "\\s|\\r|,";
@@ -117,6 +117,7 @@ namespace JANA_Code_Editor
         // ENTRY POINT.
         public string Start(string[] input)
         {
+            string col = "";
             delimiter = '"';
             hasError = false;
             hasLookahead = false;
@@ -130,15 +131,17 @@ namespace JANA_Code_Editor
                 for (currColumn = 0; currColumn < line.Length; currColumn++)
                 {
                     char column = line[currColumn];
-
+                    col = column.ToString();
                     
-                        if (column == '\r' || column == ' ')
+                        if (col == "\r\n" || column == ' ' || column == '\t')
                         {
                             CheckAll(column.ToString());
+                            current = "";
                         } else if (column == ',')
                         {
                             CheckAll(column.ToString());
                             frmMain.Self.dGridResults.Rows.Add(column, column);
+                            current = "";
                         }
                         else if (CheckSymbol(column))
                         {
@@ -157,7 +160,9 @@ namespace JANA_Code_Editor
                         wasSymbol = CheckSymbol(column);
                         //isSeperator = CheckSeperator(column);
                     }
-                
+
+                CheckAll(col.ToString());
+                current = "";
             }
 
             if (!hasError) output = "No Errors.";
@@ -303,12 +308,196 @@ namespace JANA_Code_Editor
                     frmMain.Self.dGridResults.Rows.Add(current, "invalid");
                     output += "[LN " + (currLine + 1) + " COL " + (currColumn + 1) +
                         "] ERROR: Incorrect use of reserved word \"" + current + "\".\r\n";
+       
                 } else
                 {
                     frmMain.Self.dGridResults.Rows.Add(current, current);
                 }
+            } else if (rgxSymbols.IsMatch(current))
+            {
+                switch (current)
+                {
+                    case "+":
+                        Regex rgx = new Regex(delSY_1);
+                        valid = (rgx.IsMatch(c) ? true : false); break;
+                    case "-":
+                        rgx = new Regex(delSY_1);
+                        valid = (rgx.IsMatch(c) ? true : false); break;
+                    case "-!":
+                        rgx = new Regex(delSY_2);
+                        valid = (rgx.IsMatch(c) ? true : false); break;
+                    case "/":
+                        rgx = new Regex(delSY_1);
+                        valid = (rgx.IsMatch(c) ? true : false); break;
+                    
+                    case "%":
+                        rgx = new Regex(delSY_1);
+                        valid = (rgx.IsMatch(c) ? true : false); break;
+                    case "^":
+                        rgx = new Regex("\\d");
+                        valid = (rgx.IsMatch(c) ? true : false); break;
+                    case "~":
+                        rgx = new Regex(delSY_3);
+                        valid = (rgx.IsMatch(c) ? true : false); break;
+                    case "@@":
+                        rgx = new Regex(delSY_2);
+                        valid = (rgx.IsMatch(c) ? true : false); break;
+                    case "$$":
+                        rgx = new Regex(delSY_2);
+                        valid = (rgx.IsMatch(c) ? true : false); break;
+                    case "$":
+                        rgx = new Regex("[a-z]|[A-Z]");
+                        valid = (rgx.IsMatch(c) ? true : false); break;
+                    case "=":
+                        rgx = new Regex(delSY_3);
+                        valid = (rgx.IsMatch(c) ? true : false); break;
+                    case "==":
+                        rgx = new Regex(delSY_3);
+                        valid = (rgx.IsMatch(c) ? true : false); break;
+                    case "==!":
+                        rgx = new Regex(delSY_3);
+                        valid = (rgx.IsMatch(c) ? true : false); break;
+                    case ">>":
+                        rgx = new Regex(delSY_3);
+                        valid = (rgx.IsMatch(c) ? true : false); break;
+                    case "<<":
+                        rgx = new Regex(delSY_3);
+                        valid = (rgx.IsMatch(c) ? true : false); break;
+                    case ">>=":
+                        rgx = new Regex(delSY_3);
+                        valid = (rgx.IsMatch(c) ? true : false); break;
+                    case "<<=":
+                        rgx = new Regex(delSY_3);
+                        valid = (rgx.IsMatch(c) ? true : false); break;
+                    case "-->":
+                        rgx = new Regex(delSY_6);
+                        valid = (rgx.IsMatch(c) ? true : false); break;
+                    case "++":
+                        rgx = new Regex(delSY_2);
+                        valid = (rgx.IsMatch(c) ? true : false); break;
+                    case "--":
+                        rgx = new Regex(delSY_2);
+                        valid = (rgx.IsMatch(c) ? true : false); break;
+                    case "(":
+                        rgx = new Regex(delSY_11);
+                        valid = (rgx.IsMatch(c) ? true : false); break;
+                    case ")":
+                        rgx = new Regex(delSY_10);
+                        valid = (rgx.IsMatch(c) ? true : false); break;
+                    case "{":
+                        rgx = new Regex(delSY_6);
+                        valid = (rgx.IsMatch(c) ? true : false); break;
+                    case "}":
+                        rgx = new Regex(delSY_9);
+                        valid = (rgx.IsMatch(c) ? true : false); break;
+                    case "#":
+                        rgx = new Regex("[a-z]|[A-Z]");
+                        valid = (rgx.IsMatch(c) ? true : false); break;
+                    case ";":
+                        rgx = new Regex(delSY_8);
+                        valid = (rgx.IsMatch(c) ? true : false); break;
+                }
+
+                if (!valid)
+                {
+                    hasError = true;
+                    frmMain.Self.dGridResults.Rows.Add(current, "invalid");
+                    output += "[LN " + (currLine + 1) + " COL " + (currColumn + 1) +
+                        "] ERROR: Incorrect use of symbol \"" + current + "\".\r\n";
+                }
+                else
+                {
+                    frmMain.Self.dGridResults.Rows.Add(current, current);
+                }
+            } else if (rgxChar.IsMatch(current))
+            {
+                Regex rgx = new Regex(delch);
+                valid = (rgx.IsMatch(current) ? true : false);
+
+                if (!valid)
+                {
+                    hasError = true;
+                    frmMain.Self.dGridResults.Rows.Add(current, "invalid");
+                    output += "[LN " + (currLine + 1) + " COL " + (currColumn + 1) +
+                        "] ERROR: Incorrect use of charType \"" + current + "\".\r\n";
+                }
+                else
+                {
+                    frmMain.Self.dGridResults.Rows.Add(current, "charType");
+                }
+            }
+            else if (rgxString.IsMatch(current))
+            {
+                Regex rgx = new Regex(delstr);
+                valid = (rgx.IsMatch(current) ? true : false);
+
+                if (!valid)
+                {
+                    hasError = true;
+                    frmMain.Self.dGridResults.Rows.Add(current, "invalid");
+                    output += "[LN " + (currLine + 1) + " COL " + (currColumn + 1) +
+                        "] ERROR: Incorrect use of stringType \"" + current + "\".\r\n";
+                }
+                else
+                {
+                    frmMain.Self.dGridResults.Rows.Add(current, "stringType");
+                }
+            }
+            else if (rgxInt.IsMatch(current))
+            {
+                Regex rgx = new Regex(delit);
+                valid = (rgx.IsMatch(current) ? true : false);
+
+                if (!valid)
+                {
+                    hasError = true;
+                    frmMain.Self.dGridResults.Rows.Add(current, "invalid");
+                    output += "[LN " + (currLine + 1) + " COL " + (currColumn + 1) +
+                        "] ERROR: Incorrect use of intType \"" + current + "\".\r\n";
+                }
+                else
+                {
+                    frmMain.Self.dGridResults.Rows.Add(current, "intType");
+                }
+            }
+            else if (rgxFloat.IsMatch(current))
+            {
+                Regex rgx = new Regex(delRW_1);
+                valid = (rgx.IsMatch(current) ? true : false);
+
+                if (!valid)
+                {
+                    hasError = true;
+                    frmMain.Self.dGridResults.Rows.Add(current, "invalid");
+                    output += "[LN " + (currLine + 1) + " COL " + (currColumn + 1) +
+                        "] ERROR: Incorrect use of floatType \"" + current + "\".\r\n";
+                }
+                else
+                {
+                    frmMain.Self.dGridResults.Rows.Add(current, "floatType");
+                }
+            }
+            else if (rgxId.IsMatch(current))
+            {
+                Regex rgx = new Regex(delid);
+                valid = (rgx.IsMatch(current) ? true : false);
+
+                if (!valid)
+                {
+                    hasError = true;
+                    frmMain.Self.dGridResults.Rows.Add(current, "invalid");
+                    output += "[LN " + (currLine + 1) + " COL " + (currColumn + 1) +
+                        "] ERROR: Incorrect use of id \"" + current + "\".\r\n";
+                }
+                else
+                {
+                    frmMain.Self.dGridResults.Rows.Add(current, "id");
+                }
             }
         }
+
+        //private string operators = "\\+|\\-|/|%|\\*\\^|~|@@|\\$\\$|=|==|==!|>>|<<|>>=|" +
+        //    "<<=|\\+\\+|\\-\\-|\\(|\\)|\\{|\\}|\\[|\\]";
 
         private bool CheckSeperator(char column)
         {
