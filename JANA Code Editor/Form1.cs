@@ -12,9 +12,19 @@ namespace JANA_Code_Editor
 {
     public partial class frmMain : Form
     {
+        public static frmMain Self;
         public frmMain()
         {
             InitializeComponent();
+            Self = this;
+        }
+
+        private void btnRun_Click(object sender, EventArgs e)
+        {
+            Lexical LexicalAnalyzer = new Lexical();
+
+            dGridResults.Rows.Clear();
+            txtOutput.Text = LexicalAnalyzer.Start(document.Lines);
         }
     }
 }

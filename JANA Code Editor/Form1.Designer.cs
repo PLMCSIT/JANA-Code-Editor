@@ -32,11 +32,11 @@
             this.syntaxBox = new Alsing.Windows.Forms.SyntaxBoxControl();
             this.document = new Alsing.SourceCode.SyntaxDocument(this.components);
             this.grpOutput = new System.Windows.Forms.GroupBox();
+            this.txtOutput = new System.Windows.Forms.TextBox();
             this.dGridResults = new System.Windows.Forms.DataGridView();
             this.lexeme = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.token = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.txtOutput = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnRun = new System.Windows.Forms.Button();
             this.picResult = new System.Windows.Forms.PictureBox();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.grpOutput.SuspendLayout();
@@ -69,8 +69,8 @@
             this.syntaxBox.ShowScopeIndicator = false;
             this.syntaxBox.Size = new System.Drawing.Size(500, 360);
             this.syntaxBox.SmoothScroll = false;
-            this.syntaxBox.SplitviewH = -6;
-            this.syntaxBox.SplitviewV = -6;
+            this.syntaxBox.SplitviewH = -4;
+            this.syntaxBox.SplitviewV = -4;
             this.syntaxBox.TabGuideColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(233)))), ((int)(((byte)(233)))));
             this.syntaxBox.TabIndex = 0;
             this.syntaxBox.Text = "Code Editor";
@@ -79,7 +79,13 @@
             // document
             // 
             this.document.Lines = new string[] {
-        ""};
+        "main() {\r",
+        "\tstring message;\r",
+        "\r",
+        "\tout -> \"Input your message: \";\r",
+        "\tget -> message;\r",
+        "\tout -> \"Your message is: \";\r",
+        "}"};
             this.document.MaxUndoBufferSize = 1000;
             this.document.Modified = false;
             this.document.SyntaxFile = "C:\\Users\\wicoc\\Documents\\Visual Studio 2015\\Projects\\JANA Code Editor\\SyntaxFiles" +
@@ -95,6 +101,15 @@
             this.grpOutput.TabIndex = 1;
             this.grpOutput.TabStop = false;
             this.grpOutput.Text = "Output";
+            // 
+            // txtOutput
+            // 
+            this.txtOutput.Location = new System.Drawing.Point(7, 29);
+            this.txtOutput.Multiline = true;
+            this.txtOutput.Name = "txtOutput";
+            this.txtOutput.ReadOnly = true;
+            this.txtOutput.Size = new System.Drawing.Size(746, 88);
+            this.txtOutput.TabIndex = 0;
             // 
             // dGridResults
             // 
@@ -126,24 +141,16 @@
             this.token.Name = "token";
             this.token.ReadOnly = true;
             // 
-            // txtOutput
+            // btnRun
             // 
-            this.txtOutput.Location = new System.Drawing.Point(7, 29);
-            this.txtOutput.Multiline = true;
-            this.txtOutput.Name = "txtOutput";
-            this.txtOutput.ReadOnly = true;
-            this.txtOutput.Size = new System.Drawing.Size(746, 88);
-            this.txtOutput.TabIndex = 0;
-            // 
-            // button1
-            // 
-            this.button1.BackgroundImage = global::JANA_Code_Editor.Properties.Resources.compile;
-            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button1.Location = new System.Drawing.Point(666, 2);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(50, 50);
-            this.button1.TabIndex = 4;
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnRun.BackgroundImage = global::JANA_Code_Editor.Properties.Resources.compile;
+            this.btnRun.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnRun.Location = new System.Drawing.Point(666, 2);
+            this.btnRun.Name = "btnRun";
+            this.btnRun.Size = new System.Drawing.Size(50, 50);
+            this.btnRun.TabIndex = 4;
+            this.btnRun.UseVisualStyleBackColor = true;
+            this.btnRun.Click += new System.EventHandler(this.btnRun_Click);
             // 
             // picResult
             // 
@@ -159,7 +166,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 561);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnRun);
             this.Controls.Add(this.picResult);
             this.Controls.Add(this.dGridResults);
             this.Controls.Add(this.grpOutput);
@@ -181,17 +188,16 @@
         }
 
         #endregion
-
-        private Alsing.Windows.Forms.SyntaxBoxControl syntaxBox;
-        private Alsing.SourceCode.SyntaxDocument document;
         private System.Windows.Forms.GroupBox grpOutput;
-        private System.Windows.Forms.DataGridView dGridResults;
         private System.Windows.Forms.DataGridViewTextBoxColumn lexeme;
         private System.Windows.Forms.DataGridViewTextBoxColumn token;
         private System.Windows.Forms.TextBox txtOutput;
         private System.Windows.Forms.PictureBox picResult;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnRun;
         private System.Windows.Forms.BindingSource bindingSource1;
+        public Alsing.Windows.Forms.SyntaxBoxControl syntaxBox;
+        public Alsing.SourceCode.SyntaxDocument document;
+        public System.Windows.Forms.DataGridView dGridResults;
     }
 }
 
