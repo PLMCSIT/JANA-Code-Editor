@@ -20,6 +20,7 @@ namespace JANA_Code_Editor
         private bool isDelimited { get; set; }
         private bool isSeperator { get; set; }
         private bool wasSymbol { get; set; }
+        private char[] code { get; set; }
 
         private string RW = "get|out|clean|tolower|toupper|exit|main|" +
             "false|stop|true|choice|fall|attempt|handle|do|else|elseif|" +
@@ -32,7 +33,7 @@ namespace JANA_Code_Editor
         private string paren = "\\(";
         private string hyphen = "\\-";
         private string semic = ";";
-        private string newline = "\\n";
+        private string newline = "\\r|\\n";
         private string zero = "0";
         private string und = "_";
         private string colon = ":";
@@ -44,20 +45,20 @@ namespace JANA_Code_Editor
         private string otherSY2 = "\\-|>";
         private string relop = "=|!";
         private string delRW_1 = ";|\\s";
-        private string delRW_2 = ":|\\s|\\n";
-        private string delRW_3 = "\\{|\\s|\\n";
+        private string delRW_2 = ":|\\s|\\r";
+        private string delRW_3 = "\\{|\\s|\\r";
         private string delRW_4 = "(|\\s)";
         private string delSY_1 = "\\s|[1-9]";
         private string delSY_2 = "\\s|[A-Z]|[a-z]";
         private string delSY_3 = "\\s|[A-Z]|[a-z]|[1-9]";
         private string delSY_4 = "\\s|.";
-        private string delSY_5 = ";|\\n";
+        private string delSY_5 = ";|\\r";
         private string delSY_6 = "\\s|[A-Z]|[a-z]|[1-9]|.";
-        private string delSY_7 = "\\s|[A-Z]|[a-z]|[1-9]|.|;|\\n";
+        private string delSY_7 = "\\s|[A-Z]|[a-z]|[1-9]|.|;|\\r";
         private string delSY_8 = "\\n|";
-        private string delSY_9 = "\\s|.|;|\\n|";
+        private string delSY_9 = "\\s|.|;|\\r|";
         private string delSY_10 = "\\s|.|;";
-        private string delSY_11 = ":|\\s|\\n||\"";
+        private string delSY_11 = ":|\\s|\\r||\"";
         private string delid = ";|\\s|=|\\[|";
         private string delit = ";|\\s|\\.";
         private string delch = ";|\\s|'";
@@ -76,7 +77,7 @@ namespace JANA_Code_Editor
 
         // ALL OPERATORS
         private string operators = "\\+|\\-|/|%|\\*\\^|~|@@|\\$\\$|\\$|=|==|==!|>>|<<|>>=|" +
-            "<<=|\\+\\+|\\-\\-|\\(|\\)|\\{|\\}|\\[|\\]|-!|\\-\\->|;";
+            "<<=|\\+\\+|\\-\\-|\\(|\\)|\\{|\\}|\\[|\\]|-!|\\-\\->|;|:";
 
         // SEPERATORS
         private string seperators = "\\s|\\r|,";
@@ -114,62 +115,400 @@ namespace JANA_Code_Editor
         private string comma = ",";
         */
 
+        int c = -1;
+
         // ENTRY POINT.
         public string Start(string[] input)
         {
-            string col = "";
-            delimiter = '"';
-            hasError = false;
-            hasLookahead = false;
-            isDelimited = false;
-            current = "";
+            code = frmMain.Self.document.Text.ToCharArray();
 
-            for (currLine = 0; currLine < input.Length; currLine++)
-            {
-                char[] line = input[currLine].Trim().ToCharArray();
-
-                for (currColumn = 0; currColumn < line.Length; currColumn++)
-                {
-                    char column = line[currColumn];
-                    col = column.ToString();
-                    
-                        if (col == "\r\n" || column == ' ' || column == '\t')
-                        {
-                            CheckAll(column.ToString());
-                            current = "";
-                        } else if (column == ',')
-                        {
-                            CheckAll(column.ToString());
-                            frmMain.Self.dGridResults.Rows.Add(column, column);
-                            current = "";
-                        }
-                        else if (CheckSymbol(column))
-                        {
-                            if (wasSymbol) current += column;
-                            else
-                            {
-                                CheckAll(column.ToString());
-                                current = column.ToString();
-                            }
-                        }
-                        else
-                        {
-                            current += column;
-                        }
-
-                        wasSymbol = CheckSymbol(column);
-                        //isSeperator = CheckSeperator(column);
-                    }
-
-                CheckAll(col.ToString());
-                current = "";
-            }
-
-            if (!hasError) output = "No Errors.";
+            while (c < code.Length) scan();
 
             return output;
         }
 
+        private void scan()
+        {
+            Regex rgx;
+            
+            try
+            {
+                // 0
+                if (code[++c] == 'a')
+                {
+                    // 1
+                    if (code[++c] == 't')
+                    {
+                        // 2
+                        if (code[++c] == 't')
+                        {
+                            // 3
+                            if (code[++c] == 'e')
+                            {
+                                // 4
+                                if (code[++c] == 'm')
+                                {
+                                    // 5
+                                    if (code[++c] == 'p')
+                                    {
+                                        // 6
+                                        if (code[++c] == 't')
+                                        {
+                                            // 7
+                                            rgx = new Regex(delRW_3);
+                                            if (rgx.IsMatch(code[++c].ToString()))
+                                            {
+                                                // 8+
+                                                frmMain.Self.dGridResults.Rows.Add("attempt", "attempt");
+                                            }
+                                            else
+                                            {
+                                                output += "[ERROR] Invalid use of reserved word 'attempt'.";
+                                                hasError = true;
+                                                frmMain.Self.dGridResults.Rows.Add("attempt", "invalid");
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                } else if (code[c] == 'b')
+                {
+                    // 9
+                    if (code[++c] == 'o')
+                    {
+                        // 10
+                        if (code[++c] == 'o')
+                        {
+                            // 11
+                            if (code[++c] == 'l')
+                            {
+                                // 12
+                                if (code[++c] == 'e')
+                                {
+                                    // 13
+                                    if (code[++c] == 'a')
+                                    {
+                                        // 14
+                                        if (code[++c] == 'n')
+                                        {
+                                            // 15
+                                            rgx = new Regex(space);
+                                            if (rgx.IsMatch(code[++c].ToString()))
+                                            {
+                                                // 16+
+                                                frmMain.Self.dGridResults.Rows.Add("boolean", "boolean");
+                                            } else
+                                            {
+                                                output += "[ERROR] Invalid use of reserved word 'boolean'.";
+                                                hasError = true;
+                                                frmMain.Self.dGridResults.Rows.Add("boolean", "invalid");
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                } else if (code[c] == 'c')
+                {
+                    // 17
+                    if (code[++c] == 'h')
+                    {
+                        // 18
+                        if (code[++c] == 'a')
+                        {
+                            // 19
+                            if (code[++c] == 'r')
+                            {
+                                // 20
+                                rgx = new Regex(space);
+                                if (rgx.IsMatch(code[++c].ToString()))
+                                {
+                                    // 21+
+                                    frmMain.Self.dGridResults.Rows.Add("char", "char");
+                                } else
+                                {
+                                    output += "[ERROR] Invalid use of reserved word 'char'.";
+                                    hasError = true;
+                                    frmMain.Self.dGridResults.Rows.Add("char", "invalid");
+                                }
+                            }
+                        } else if (code[c] == 'o')
+                        {
+                            // 22
+                            if (code[++c] == 'i')
+                            {
+                                // 23
+                                if (code[++c] == 'c')
+                                {
+                                    // 24
+                                    if (code[++c] == 'e')
+                                    {
+                                        // 25
+                                        rgx = new Regex(delRW_2);
+                                        if (rgx.IsMatch(code[++c].ToString()))
+                                        {
+                                            // 26+
+                                            frmMain.Self.dGridResults.Rows.Add("choice", "choice");
+                                        } else
+                                        {
+                                            output += "[ERROR] Invalid use of reserved word 'choice'.";
+                                            hasError = true;
+                                            frmMain.Self.dGridResults.Rows.Add("choice", "invalid");
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    } else if (code[c] == 'l')
+                    {
+                        // 27
+                        if (code[++c] == 'e')
+                        {
+                            // 28
+                            if (code[++c] == 'a')
+                            {
+                                // 29
+                                if (code[++c] == 'n')
+                                {
+                                    // 30
+                                    rgx = new Regex(paren);
+                                    if (rgx.IsMatch(code[++c].ToString()))
+                                    {
+                                        // 31+
+                                        frmMain.Self.dGridResults.Rows.Add("clean", "clean");
+                                    } else
+                                    {
+                                        output += "[ERROR] Invalid use of reserved word 'clean'.";
+                                        hasError = true;
+                                        frmMain.Self.dGridResults.Rows.Add("clean", "invalid");
+                                    }
+                                }
+                            }
+                        }
+                    }
+                } else if (code[c] == 'd')
+                {
+                    // 32
+                    if (code[++c] == 'o')
+                    {
+                        // 33
+                        rgx = new Regex(delRW_3);
+                        if (rgx.IsMatch(code[++c].ToString()))
+                        {
+                            // 34
+                            frmMain.Self.dGridResults.Rows.Add("do", "do");
+                        } else
+                        {
+                            output += "[ERROR] Invalid use of reserved word 'do'.";
+                            hasError = true;
+                            frmMain.Self.dGridResults.Rows.Add("do", "invalid");
+                        }
+                    }
+                } else if (code[c] == 'e')
+                {
+                    // 35
+                    if (code[++c] == 'l')
+                    {
+                        // 36
+                        if (code[++c] == 's')
+                        {
+                            // 37
+                            if (code[++c] == 'e')
+                            {
+                                // 38
+                                rgx = new Regex(delRW_3);
+                                if (code[++c] == 'i')
+                                {
+                                    // 40
+                                    if (code[++c] == 'f')
+                                    {
+                                        // 41
+                                        if (rgx.IsMatch(code[++c].ToString()))
+                                        {
+                                            // 42+
+                                            frmMain.Self.dGridResults.Rows.Add("elseif", "elseif");
+                                        } else
+                                        {
+                                            output += "[ERROR] Invalid use of reserved word 'elseif'.";
+                                            hasError = true;
+                                            frmMain.Self.dGridResults.Rows.Add("elseif", "invalid");
+                                        }
+                                    }
+                                } else if (rgx.IsMatch(code[c].ToString()))
+                                {
+                                    // 39+
+                                    frmMain.Self.dGridResults.Rows.Add("else", "else");
+                                } else
+                                {
+                                    output += "[ERROR] Invalid use of reserved word 'else'.";
+                                    hasError = true;
+                                    frmMain.Self.dGridResults.Rows.Add("else", "invalid");
+                                }
+                            }
+                        }
+                    } else if (code[c] == 'x')
+                    {
+                        // 43
+                        if (code[++c] == 'i')
+                        {
+                            // 44
+                            if (code[++c] == 't')
+                            {
+                                // 45
+                                if (code[++c] == '(')
+                                {
+                                    // 46
+                                    if (code[++c] == ')')
+                                    {
+                                        // 47
+                                        rgx = new Regex(delRW_1);
+                                        if (rgx.IsMatch(code[++c].ToString()))
+                                        {
+                                            // 48+
+                                            frmMain.Self.dGridResults.Rows.Add("exit", "exit");
+                                        } else
+                                        {
+                                            output += "[ERROR] Invalid use of reserved word 'exit'.";
+                                            hasError = true;
+                                            frmMain.Self.dGridResults.Rows.Add("exit", "invalid");
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                } else if (code[c] == 'f')
+                {
+                    // 49
+                    if (code[++c] == 'a')
+                    {
+                        // 50
+                        if (code[++c] == 'l')
+                        {
+                            // 51
+                            if (code[++c] == 'l')
+                            {
+                                // 52
+                                rgx = new Regex(delRW_2);
+                                if (rgx.IsMatch(code[++c].ToString()))
+                                {
+                                    // 53+
+                                    frmMain.Self.dGridResults.Rows.Add("fall", "fall");
+                                } else
+                                {
+                                    output += "[ERROR] Invalid use of reserved word 'fall'.";
+                                    hasError = true;
+                                    frmMain.Self.dGridResults.Rows.Add("fall", "invalid");
+                                }
+                            } else if (code[c] == 's')
+                            {
+                                // 54
+                                if (code[++c] == 'e')
+                                {
+                                    // 55
+                                    rgx = new Regex(delRW_1);
+                                    if (rgx.IsMatch(code[++c].ToString()))
+                                    {
+                                        // 56+
+                                        frmMain.Self.dGridResults.Rows.Add("false", "false");
+                                    }
+                                    else
+                                    {
+                                        output += "[ERROR] Invalid use of reserved word 'false'.";
+                                        hasError = true;
+                                        frmMain.Self.dGridResults.Rows.Add("false", "invalid");
+                                    }
+                                }
+                            }
+                        }
+                    }
+                } else if (code[c] == 'g')
+                {
+                    // 57
+                    if (code[++c] == 'e')
+                    {
+                        // 58
+                        if (code[++c] == 't')
+                        {
+                            // 59
+                            rgx = new Regex(hyphen);
+                            if (rgx.IsMatch(code[++c].ToString()))
+                            {
+                                // 60+
+                                frmMain.Self.dGridResults.Rows.Add("get", "get");
+                            } else
+                            {
+                                output += "[ERROR] Invalid use of reserved word 'get'.";
+                                hasError = true;
+                                frmMain.Self.dGridResults.Rows.Add("get", "invalid");
+                            }
+                        }
+                    }
+                } else if (code[c] == 'h')
+                {
+                    // 61
+                    if (code[++c] == 'a')
+                    {
+                        // 62
+                        if (code[++c] == 'n')
+                        {
+                            // 63
+                            if (code[++c] == 'd')
+                            {
+                                // 64
+                                if (code[++c] == 'l')
+                                {
+                                    // 65
+                                    if (code[++c] == 'e')
+                                    {
+                                        // 66
+                                        rgx = new Regex(delRW_3);
+                                        if (rgx.IsMatch(code[++c].ToString()))
+                                        {
+                                            // 67+
+                                            frmMain.Self.dGridResults.Rows.Add("handle", "handle");
+                                        } else
+                                        {
+                                            output += "[ERROR] Invalid use of reserved word 'handle'.";
+                                            hasError = true;
+                                            frmMain.Self.dGridResults.Rows.Add("handle", "invalid");
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                } else if (code[c] == 'i')
+                {
+                    // 68
+                    if (code[++c] == 'f')
+                    {
+                        // 69
+                        rgx = new Regex(delRW_4);
+                        if (rgx.IsMatch(code[++c].ToString()))
+                        {
+                            // 70+
+                            frmMain.Self.dGridResults.Rows.Add("if", "if");
+                        } else
+                        {
+                            output += "[ERROR] Invalid use of reserved word 'if'.";
+                            hasError = true;
+                            frmMain.Self.dGridResults.Rows.Add("if", "invalid");
+                        }
+                    }
+                }
+            } catch
+            {
+
+            }
+        }
+    }
+}
+
+        /*
         private void CheckAll(string c)
         {
             Regex rgxSymbols = new Regex(operators);
@@ -285,6 +624,9 @@ namespace JANA_Code_Editor
                     case "real":
                         rgx = new Regex(space);
                         valid = (rgx.IsMatch(c) ? true : false); break;
+                    case "return":
+                        rgx = new Regex(space);
+                        valid = (rgx.IsMatch(c) ? true : false); break;
                     case "valid =":
                         rgx = new Regex(space);
                         valid = (rgx.IsMatch(c) ? true : false); break;
@@ -317,8 +659,11 @@ namespace JANA_Code_Editor
             {
                 switch (current)
                 {
+                    case " ":
+                        Regex rgx = new Regex(".");
+                        valid = (rgx.IsMatch(c) ? true : false); break;
                     case "+":
-                        Regex rgx = new Regex(delSY_1);
+                        rgx = new Regex(delSY_1);
                         valid = (rgx.IsMatch(c) ? true : false); break;
                     case "-":
                         rgx = new Regex(delSY_1);
@@ -396,6 +741,12 @@ namespace JANA_Code_Editor
                     case ";":
                         rgx = new Regex(delSY_8);
                         valid = (rgx.IsMatch(c) ? true : false); break;
+                    case "()":
+                        rgx = new Regex(delRW_3);
+                        valid = (rgx.IsMatch(c) ? true : false); break;
+                    case ":":
+                        rgx = new Regex(".");
+                        valid = (rgx.IsMatch(c) ? true : false); break;
                 }
 
                 if (!valid)
@@ -407,7 +758,11 @@ namespace JANA_Code_Editor
                 }
                 else
                 {
-                    frmMain.Self.dGridResults.Rows.Add(current, current);
+                    if (current == "()")
+                    {
+                        frmMain.Self.dGridResults.Rows.Add("(", "(");
+                        frmMain.Self.dGridResults.Rows.Add(")", ")");
+                    } else frmMain.Self.dGridResults.Rows.Add(current, current);
                 }
             } else if (rgxChar.IsMatch(current))
             {
@@ -514,3 +869,4 @@ namespace JANA_Code_Editor
         }
     }
 }
+*/

@@ -80,13 +80,39 @@
             // document
             // 
             this.document.Lines = new string[] {
-        "main() {\r",
-        "\tstring message;\r",
-        "\r",
-        "\tout -> \"Input your message: \";\r",
-        "\tget -> message;\r",
-        "\tout -> \"Your message is: \";\r",
-        "}"};
+        "attempt{\r",
+        "boolean var\r",
+        "char var\r",
+        "choice:\r",
+        "clean(\r",
+        "do{\r",
+        "else{\r",
+        "elseif{\r",
+        "exit(\r",
+        "fall:\r",
+        "false;\r",
+        "get-->\r",
+        "handle{\r",
+        "int var\r",
+        "if\r",
+        "iterate\r",
+        "main(\r",
+        "new var\r",
+        "null\r",
+        "out-->\r",
+        "real var\r",
+        "return \"this\"\r",
+        "string var\r",
+        "strlen\r",
+        "struct var\r",
+        "stop;\r",
+        "test{\r",
+        "then{\r",
+        "true;\r",
+        "tolower(\r",
+        "toupper(\r",
+        "until\r",
+        "void var"};
             this.document.MaxUndoBufferSize = 1000;
             this.document.Modified = false;
             this.document.SyntaxFile = "C:\\Users\\wicoc\\Documents\\Visual Studio 2015\\Projects\\JANA Code Editor\\SyntaxFiles" +
