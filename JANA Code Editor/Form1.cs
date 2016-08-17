@@ -26,5 +26,15 @@ namespace JANA_Code_Editor
             dGridResults.Rows.Clear();
             txtOutput.Text = LexicalAnalyzer.Start(document.Lines);
         }
+
+        private void dGridResults_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void dGridResults_SelectionChanged(object sender, EventArgs e)
+        {
+            dGridResults.ClearSelection();
+        }
     }
 }

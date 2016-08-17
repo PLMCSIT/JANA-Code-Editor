@@ -146,6 +146,7 @@
             this.dGridResults.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.lexeme,
             this.token});
+            this.dGridResults.Enabled = false;
             this.dGridResults.Location = new System.Drawing.Point(521, 55);
             this.dGridResults.Name = "dGridResults";
             this.dGridResults.ReadOnly = true;
@@ -153,6 +154,8 @@
             this.dGridResults.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dGridResults.Size = new System.Drawing.Size(251, 360);
             this.dGridResults.TabIndex = 2;
+            this.dGridResults.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dGridResults_CellContentClick);
+            this.dGridResults.SelectionChanged += new System.EventHandler(this.dGridResults_SelectionChanged);
             // 
             // lexeme
             // 
