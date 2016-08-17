@@ -21,10 +21,15 @@ namespace JANA_Code_Editor
 
         private void btnRun_Click(object sender, EventArgs e)
         {
-            Lexical LexicalAnalyzer = new Lexical();
+            LexicalAnalyzer LexicalAnalyzer = new LexicalAnalyzer();
 
             dGridResults.Rows.Clear();
-            txtOutput.Text = LexicalAnalyzer.Start(document.Lines);
+            txtOutput.Text = LexicalAnalyzer.Start(document.Text);
+        }
+
+        private void syntaxBox_TextChanged(object sender, EventArgs e)
+        {
+            picResult.Image = null;
         }
     }
 }

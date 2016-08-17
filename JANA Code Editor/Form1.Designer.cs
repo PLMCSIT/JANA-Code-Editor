@@ -76,6 +76,7 @@
             this.syntaxBox.TabIndex = 0;
             this.syntaxBox.Text = "Code Editor";
             this.syntaxBox.WhitespaceColor = System.Drawing.SystemColors.ControlDark;
+            this.syntaxBox.TextChanged += new System.EventHandler(this.syntaxBox_TextChanged);
             // 
             // document
             // 
@@ -88,7 +89,7 @@
         "do{\r",
         "else{\r",
         "elseif{\r",
-        "exit(\r",
+        "exit()\r",
         "fall:\r",
         "false;\r",
         "get-->\r",
@@ -96,7 +97,7 @@
         "int var\r",
         "if\r",
         "iterate\r",
-        "main(\r",
+        "main()\r",
         "new var\r",
         "null\r",
         "out-->\r",
@@ -219,12 +220,12 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn lexeme;
         private System.Windows.Forms.DataGridViewTextBoxColumn token;
         private System.Windows.Forms.TextBox txtOutput;
-        private System.Windows.Forms.PictureBox picResult;
         private System.Windows.Forms.Button btnRun;
         private System.Windows.Forms.BindingSource bindingSource1;
         public Alsing.Windows.Forms.SyntaxBoxControl syntaxBox;
         public Alsing.SourceCode.SyntaxDocument document;
         public System.Windows.Forms.DataGridView dGridResults;
+        public System.Windows.Forms.PictureBox picResult;
     }
 }
 
