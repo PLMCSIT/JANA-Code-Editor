@@ -127,7 +127,10 @@ namespace JANA_Code_Editor
 
             rows = 0;
 
-            while (c < code.Length) scan();
+            while (c < code.Length)
+            {
+                scan();
+            }
 
             if (hasError)
             {
@@ -147,7 +150,7 @@ namespace JANA_Code_Editor
             Regex rgxId = new Regex(id);
             isFound = false;
             symbol = "";
-            
+
             try
             {
                 // RESERVED WORDS
@@ -628,6 +631,8 @@ namespace JANA_Code_Editor
                                 frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.ForeColor =
                                     System.Drawing.Color.White;
                             }
+
+                            c--;
                         }
                     }
                 }
@@ -1462,6 +1467,151 @@ namespace JANA_Code_Editor
                     }
                 }
 
+                // RESERVED SYMBOLS
+                else if (code[c] == '+')
+                {
+                    // 161
+                    symbol += code[c];
+                    rgx1 = new Regex(delSY_1);
+                    rgx2 = new Regex(otherSY1);
+                    if (rgx1.IsMatch(code[++c].ToString()))
+                    {
+                        // 162+
+                        rows++;
+                        isFound = true;
+                        frmMain.Self.dGridResults.Rows.Add(symbol, symbol);
+                    } else if (rgx2.IsMatch(code[c].ToString()))
+                    {
+                        // 163
+                        symbol += code[c];
+                        rgx2 = new Regex(delSY_2);
+                        if (rgx2.IsMatch(code[++c].ToString()))
+                        {
+                            // 164+
+                            rows++;
+                            isFound = true;
+                            frmMain.Self.dGridResults.Rows.Add(symbol, symbol);
+                        } else
+                        {
+                            rows++;
+                            isFound = true;
+                            output += "[ERROR] Invalid use of reserved symbol '" + symbol + "'.\r\n";
+                            hasError = true;
+                            frmMain.Self.dGridResults.Rows.Add(symbol, "invalid");
+                            frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.BackColor =
+                                                    System.Drawing.Color.Red;
+                            frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.ForeColor =
+                                System.Drawing.Color.White;
+                        }
+                    } else
+                    {
+                        rows++;
+                        isFound = true;
+                        output += "[ERROR] Invalid use of reserved symbol '" + symbol + "'.\r\n";
+                        hasError = true;
+                        frmMain.Self.dGridResults.Rows.Add(symbol, "invalid");
+                        frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.BackColor =
+                                                System.Drawing.Color.Red;
+                        frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.ForeColor =
+                            System.Drawing.Color.White;
+                    }
+                } else if (code[c] == '-')
+                {
+                    // 165
+                    symbol += code[c];
+                    rgx1 = new Regex(delSY_1);
+                    rgx2 = new Regex(otherSY2);
+                    if (rgx1.IsMatch(code[++c].ToString()))
+                    {
+                        // 166+
+                        rows++;
+                        isFound = true;
+                        frmMain.Self.dGridResults.Rows.Add(symbol, symbol);
+                    } else if (code[c] == '!')
+                    {
+                        // 167
+                        symbol += code[c];
+                        rgx1 = new Regex(delSY_2);
+                        if (rgx1.IsMatch(code[++c].ToString()))
+                        {
+                            // 168+
+                            rows++;
+                            isFound = true;
+                            frmMain.Self.dGridResults.Rows.Add(symbol, symbol);
+                        }
+                        else
+                        {
+                            rows++;
+                            isFound = true;
+                            output += "[ERROR] Invalid use of reserved symbol '" + symbol + "'.\r\n";
+                            hasError = true;
+                            frmMain.Self.dGridResults.Rows.Add(symbol, "invalid");
+                            frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.BackColor =
+                                                    System.Drawing.Color.Red;
+                            frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.ForeColor =
+                                System.Drawing.Color.White;
+                        }
+                    } else if (rgx2.IsMatch(code[c].ToString()))
+                    {
+                        // 169
+                        symbol += code[c];
+                        rgx2 = new Regex(delSY_6);
+                        if (rgx2.IsMatch(code[++c].ToString()))
+                        {
+                            // 170+
+                            rows++;
+                            isFound = true;
+                            frmMain.Self.dGridResults.Rows.Add(symbol, symbol);
+                        } else if (code[c] == '>')
+                        {
+                            // 171
+                            symbol += code[c];
+                            if (rgx2.IsMatch(code[++c].ToString()))
+                            {
+                                // 172+
+                                rows++;
+                                isFound = true;
+                                frmMain.Self.dGridResults.Rows.Add(symbol, symbol);
+                            }
+                            else
+                            {
+                                rows++;
+                                isFound = true;
+                                output += "[ERROR] Invalid use of reserved symbol '" + symbol + "'.\r\n";
+                                hasError = true;
+                                frmMain.Self.dGridResults.Rows.Add(symbol, "invalid");
+                                frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.BackColor =
+                                                        System.Drawing.Color.Red;
+                                frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.ForeColor =
+                                    System.Drawing.Color.White;
+                            }
+                        }
+                        else
+                        {
+                            rows++;
+                            isFound = true;
+                            output += "[ERROR] Invalid use of reserved symbol '" + symbol + "'.\r\n";
+                            hasError = true;
+                            frmMain.Self.dGridResults.Rows.Add(symbol, "invalid");
+                            frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.BackColor =
+                                                    System.Drawing.Color.Red;
+                            frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.ForeColor =
+                                System.Drawing.Color.White;
+                        }
+                    } else 
+                    {
+                        rows++;
+                        isFound = true;
+                        output += "[ERROR] Invalid use of reserved symbol '" + symbol + "'.\r\n";
+                        hasError = true;
+                        frmMain.Self.dGridResults.Rows.Add(symbol, "invalid");
+                        frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.BackColor =
+                                                System.Drawing.Color.Red;
+                        frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.ForeColor =
+                            System.Drawing.Color.White;
+                    }
+                }
+
                     if (!isFound)
                     {
                         rgx1 = new Regex(delid);
@@ -1484,7 +1634,7 @@ namespace JANA_Code_Editor
                             hasError = true;
                             frmMain.Self.dGridResults.Rows.Add(symbol, "invalid");
                             frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.BackColor =
-                                                    System.Drawing.Color.Red;
+                                System.Drawing.Color.Red;
                             frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.ForeColor =
                                 System.Drawing.Color.White;
                         }
@@ -1506,6 +1656,7 @@ namespace JANA_Code_Editor
                             frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.ForeColor =
                                 System.Drawing.Color.White;
                         }
+                    c--;
                 }
             } catch
             {
