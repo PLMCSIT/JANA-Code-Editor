@@ -36,5 +36,10 @@ namespace JANA_Code_Editor
         {
             dGridResults.ClearSelection();
         }
+
+        private void syntaxBox_TextChanged(object sender, EventArgs e)
+        {
+            picResult.Image = null;
+        }
     }
 }

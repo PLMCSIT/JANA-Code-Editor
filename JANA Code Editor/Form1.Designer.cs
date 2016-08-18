@@ -55,7 +55,7 @@
             this.syntaxBox.BorderStyle = Alsing.Windows.Forms.BorderStyle.None;
             this.syntaxBox.CopyAsRTF = false;
             this.syntaxBox.Document = this.document;
-            this.syntaxBox.FontName = "Consolas";
+            this.syntaxBox.FontName = "Inconsolata";
             this.syntaxBox.FontSize = 12F;
             this.syntaxBox.HighLightActiveLine = true;
             this.syntaxBox.ImeMode = System.Windows.Forms.ImeMode.NoControl;
@@ -76,6 +76,7 @@
             this.syntaxBox.TabIndex = 0;
             this.syntaxBox.Text = "Code Editor";
             this.syntaxBox.WhitespaceColor = System.Drawing.SystemColors.ControlDark;
+            this.syntaxBox.TextChanged += new System.EventHandler(this.syntaxBox_TextChanged);
             // 
             // document
             // 
@@ -223,12 +224,12 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn lexeme;
         private System.Windows.Forms.DataGridViewTextBoxColumn token;
         private System.Windows.Forms.TextBox txtOutput;
-        private System.Windows.Forms.PictureBox picResult;
         private System.Windows.Forms.Button btnRun;
         private System.Windows.Forms.BindingSource bindingSource1;
         public Alsing.Windows.Forms.SyntaxBoxControl syntaxBox;
         public Alsing.SourceCode.SyntaxDocument document;
         public System.Windows.Forms.DataGridView dGridResults;
+        public System.Windows.Forms.PictureBox picResult;
     }
 }
 

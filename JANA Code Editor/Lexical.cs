@@ -56,7 +56,7 @@ namespace JANA_Code_Editor
         private string delSY_9 = "\\s|.|;|\\r|";
         private string delSY_10 = "\\s|.|;";
         private string delSY_11 = ":|\\s|\\r||\"";
-        private string delid = ";|\\s|=|\\[|";
+        private string delid = "(;|\\s|=|\\[)*";
         private string delit = ";|\\s|\\.";
         private string delch = ";|\\s|'";
         private string delstr = ";|\\s|\"";
@@ -119,9 +119,24 @@ namespace JANA_Code_Editor
         {
             code = frmMain.Self.document.Text.ToCharArray();
 
+            if (!(code.Last() == ' ') && !(code.Last() == '\n'))
+            {
+                frmMain.Self.document.Text += " ";
+                code = frmMain.Self.document.Text.ToCharArray();
+            }
+
             rows = 0;
 
             while (c < code.Length) scan();
+
+            if (hasError)
+            {
+                frmMain.Self.picResult.Image = Properties.Resources.error;
+            } else
+            {
+                output = "[CLEAN] No errors.";
+                frmMain.Self.picResult.Image = Properties.Resources.success;
+            }
 
             return output;
         }
@@ -135,6 +150,7 @@ namespace JANA_Code_Editor
             
             try
             {
+                // RESERVED WORDS
                 // 0
                 if (code[++c] == 'a')
                 {
@@ -171,7 +187,9 @@ namespace JANA_Code_Editor
                                                 rows++;
                                                 isFound = true;
                                                 frmMain.Self.dGridResults.Rows.Add("attempt", "attempt");
-                                            } else if (!rgxId.IsMatch(code[c].ToString())) {
+                                            }
+                                            else if (!rgxId.IsMatch(code[c].ToString()))
+                                            {
                                                 isFound = true;
                                                 rows++;
                                                 output += "[ERROR] Invalid use of reserved word 'attempt'.\r\n";
@@ -188,7 +206,8 @@ namespace JANA_Code_Editor
                             }
                         }
                     }
-                } else if (code[c] == 'b')
+                }
+                else if (code[c] == 'b')
                 {
                     // 9
                     symbol += code[c];
@@ -223,7 +242,8 @@ namespace JANA_Code_Editor
                                                 rows++;
                                                 isFound = true;
                                                 frmMain.Self.dGridResults.Rows.Add("boolean", "boolean");
-                                            } else if (!rgxId.IsMatch(code[c].ToString()))
+                                            }
+                                            else if (!rgxId.IsMatch(code[c].ToString()))
                                             {
                                                 rows++;
                                                 isFound = true;
@@ -241,7 +261,8 @@ namespace JANA_Code_Editor
                             }
                         }
                     }
-                } else if (code[c] == 'c')
+                }
+                else if (code[c] == 'c')
                 {
                     // 17
                     symbol += code[c];
@@ -264,7 +285,8 @@ namespace JANA_Code_Editor
                                     rows++;
                                     isFound = true;
                                     frmMain.Self.dGridResults.Rows.Add("char", "char");
-                                } else if (!rgxId.IsMatch(code[c].ToString()))
+                                }
+                                else if (!rgxId.IsMatch(code[c].ToString()))
                                 {
                                     rows++;
                                     isFound = true;
@@ -277,7 +299,8 @@ namespace JANA_Code_Editor
                                         System.Drawing.Color.White;
                                 }
                             }
-                        } else if (code[c] == 'o')
+                        }
+                        else if (code[c] == 'o')
                         {
                             // 22
                             symbol += code[c];
@@ -300,7 +323,8 @@ namespace JANA_Code_Editor
                                             rows++;
                                             isFound = true;
                                             frmMain.Self.dGridResults.Rows.Add("choice", "choice");
-                                        } else if (!rgxId.IsMatch(code[c].ToString()))
+                                        }
+                                        else if (!rgxId.IsMatch(code[c].ToString()))
                                         {
                                             isFound = true;
                                             rows++;
@@ -316,7 +340,8 @@ namespace JANA_Code_Editor
                                 }
                             }
                         }
-                    } else if (code[c] == 'l')
+                    }
+                    else if (code[c] == 'l')
                     {
                         // 27
                         symbol += code[c];
@@ -339,7 +364,8 @@ namespace JANA_Code_Editor
                                         rows++;
                                         isFound = true;
                                         frmMain.Self.dGridResults.Rows.Add("clean", "clean");
-                                    } else if (!rgxId.IsMatch(code[c].ToString()))
+                                    }
+                                    else if (!rgxId.IsMatch(code[c].ToString()))
                                     {
                                         rows++;
                                         isFound = true;
@@ -355,7 +381,8 @@ namespace JANA_Code_Editor
                             }
                         }
                     }
-                } else if (code[c] == 'd')
+                }
+                else if (code[c] == 'd')
                 {
                     // 32
                     symbol += code[c];
@@ -370,7 +397,8 @@ namespace JANA_Code_Editor
                             rows++;
                             isFound = true;
                             frmMain.Self.dGridResults.Rows.Add("do", "do");
-                        } else if (!rgxId.IsMatch(code[c].ToString()))
+                        }
+                        else if (!rgxId.IsMatch(code[c].ToString()))
                         {
                             rows++;
                             isFound = true;
@@ -383,7 +411,8 @@ namespace JANA_Code_Editor
                                 System.Drawing.Color.White;
                         }
                     }
-                } else if (code[c] == 'e')
+                }
+                else if (code[c] == 'e')
                 {
                     // 35
                     symbol += code[c];
@@ -414,7 +443,8 @@ namespace JANA_Code_Editor
                                             rows++;
                                             isFound = true;
                                             frmMain.Self.dGridResults.Rows.Add("elseif", "elseif");
-                                        } else if (!rgxId.IsMatch(code[c].ToString()))
+                                        }
+                                        else if (!rgxId.IsMatch(code[c].ToString()))
                                         {
                                             rows++;
                                             isFound = true;
@@ -427,13 +457,15 @@ namespace JANA_Code_Editor
                                                 System.Drawing.Color.White;
                                         }
                                     }
-                                } else if (rgx1.IsMatch(code[c].ToString()))
+                                }
+                                else if (rgx1.IsMatch(code[c].ToString()))
                                 {
                                     // 39+
                                     rows++;
                                     isFound = true;
                                     frmMain.Self.dGridResults.Rows.Add("else", "else");
-                                } else if (!rgxId.IsMatch(code[c].ToString()))
+                                }
+                                else if (!rgxId.IsMatch(code[c].ToString()))
                                 {
                                     rows++;
                                     isFound = true;
@@ -447,7 +479,8 @@ namespace JANA_Code_Editor
                                 }
                             }
                         }
-                    } else if (code[c] == 'x')
+                    }
+                    else if (code[c] == 'x')
                     {
                         // 43
                         symbol += code[c];
@@ -473,12 +506,13 @@ namespace JANA_Code_Editor
                                             // 48+
                                             rows++;
                                             isFound = true;
-                                            frmMain.Self.dGridResults.Rows.Add("exit", "exit");
-                                        } else if (!rgxId.IsMatch(code[c].ToString()))
+                                            frmMain.Self.dGridResults.Rows.Add("exit()", "exit()");
+                                        }
+                                        else if (!rgxId.IsMatch(code[c].ToString()))
                                         {
                                             rows++;
                                             isFound = true;
-                                            output += "[ERROR] Invalid use of reserved word 'exit'.\r\n";
+                                            output += "[ERROR] Invalid use of reserved word 'exit()'.\r\n";
                                             hasError = true;
                                             frmMain.Self.dGridResults.Rows.Add("exit", "invalid");
                                             frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.BackColor =
@@ -491,7 +525,8 @@ namespace JANA_Code_Editor
                             }
                         }
                     }
-                } else if (code[c] == 'f')
+                }
+                else if (code[c] == 'f')
                 {
                     // 49
                     symbol += code[c];
@@ -514,7 +549,8 @@ namespace JANA_Code_Editor
                                     rows++;
                                     isFound = true;
                                     frmMain.Self.dGridResults.Rows.Add("fall", "fall");
-                                } else if (!rgxId.IsMatch(code[c].ToString()))
+                                }
+                                else if (!rgxId.IsMatch(code[c].ToString()))
                                 {
                                     rows++;
                                     isFound = true;
@@ -526,7 +562,8 @@ namespace JANA_Code_Editor
                                     frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.ForeColor =
                                         System.Drawing.Color.White;
                                 }
-                            } else if (code[c] == 's')
+                            }
+                            else if (code[c] == 's')
                             {
                                 // 54
                                 symbol += code[c];
@@ -558,7 +595,8 @@ namespace JANA_Code_Editor
                             }
                         }
                     }
-                } else if (code[c] == 'g')
+                }
+                else if (code[c] == 'g')
                 {
                     // 57
                     symbol += code[c];
@@ -577,7 +615,8 @@ namespace JANA_Code_Editor
                                 rows++;
                                 isFound = true;
                                 frmMain.Self.dGridResults.Rows.Add("get", "get");
-                            } else if (!rgxId.IsMatch(code[c].ToString()))
+                            }
+                            else if (!rgxId.IsMatch(code[c].ToString()))
                             {
                                 rows++;
                                 isFound = true;
@@ -591,7 +630,8 @@ namespace JANA_Code_Editor
                             }
                         }
                     }
-                } else if (code[c] == 'h')
+                }
+                else if (code[c] == 'h')
                 {
                     // 61
                     symbol += code[c];
@@ -622,7 +662,8 @@ namespace JANA_Code_Editor
                                             rows++;
                                             isFound = true;
                                             frmMain.Self.dGridResults.Rows.Add("handle", "handle");
-                                        } else if (!rgxId.IsMatch(code[c].ToString()))
+                                        }
+                                        else if (!rgxId.IsMatch(code[c].ToString()))
                                         {
                                             rows++;
                                             isFound = true;
@@ -639,7 +680,8 @@ namespace JANA_Code_Editor
                             }
                         }
                     }
-                } else if (code[c] == 'i')
+                }
+                else if (code[c] == 'i')
                 {
                     // 68
                     symbol += code[c];
@@ -654,7 +696,8 @@ namespace JANA_Code_Editor
                             rows++;
                             isFound = true;
                             frmMain.Self.dGridResults.Rows.Add("if", "if");
-                        } else if (!rgxId.IsMatch(code[c].ToString()))
+                        }
+                        else if (!rgxId.IsMatch(code[c].ToString()))
                         {
                             rows++;
                             isFound = true;
@@ -666,7 +709,8 @@ namespace JANA_Code_Editor
                             frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.ForeColor =
                                 System.Drawing.Color.White;
                         }
-                    } else if (code[c] == 'n')
+                    }
+                    else if (code[c] == 'n')
                     {
                         // 71
                         symbol += code[c];
@@ -681,7 +725,8 @@ namespace JANA_Code_Editor
                                 rows++;
                                 isFound = true;
                                 frmMain.Self.dGridResults.Rows.Add("int", "int");
-                            } else if (!rgxId.IsMatch(code[c].ToString()))
+                            }
+                            else if (!rgxId.IsMatch(code[c].ToString()))
                             {
                                 rows++;
                                 isFound = true;
@@ -694,7 +739,8 @@ namespace JANA_Code_Editor
                                     System.Drawing.Color.White;
                             }
                         }
-                    } else if (code[c] == 't')
+                    }
+                    else if (code[c] == 't')
                     {
                         // 74
                         symbol += code[c];
@@ -743,7 +789,8 @@ namespace JANA_Code_Editor
                             }
                         }
                     }
-                } else if (code[c] == 'm')
+                }
+                else if (code[c] == 'm')
                 {
                     // 81
                     symbol += code[c];
@@ -792,7 +839,8 @@ namespace JANA_Code_Editor
                             }
                         }
                     }
-                } else if (code[c] == 'n')
+                }
+                else if (code[c] == 'n')
                 {
                     // 88
                     symbol += code[c];
@@ -826,51 +874,638 @@ namespace JANA_Code_Editor
                             }
                         }
                     }
+                    else if (code[c] == 'u')
+                    {
+                        // 92
+                        symbol += code[c];
+                        if (code[++c] == 'l')
+                        {
+                            // 93
+                            symbol += code[c];
+                            if (code[++c] == 'l')
+                            {
+                                // 94
+                                symbol += code[c];
+                                rgx1 = new Regex(delRW_1);
+                                if (rgx1.IsMatch(code[++c].ToString()))
+                                {
+                                    // 95+
+                                    rows++;
+                                    isFound = true;
+                                    frmMain.Self.dGridResults.Rows.Add("null", "null");
+                                }
+                                else if (!rgxId.IsMatch(code[c].ToString()))
+                                {
+                                    rows++;
+                                    isFound = true;
+                                    output += "[ERROR] Invalid use of reserved word 'null'.\r\n";
+                                    hasError = true;
+                                    frmMain.Self.dGridResults.Rows.Add("null", "invalid");
+                                    frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.BackColor =
+                                                            System.Drawing.Color.Red;
+                                    frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.ForeColor =
+                                        System.Drawing.Color.White;
+                                }
+                            }
+                        }
+                    }
+                }
+                else if (code[c] == 'o')
+                {
+                    // 96
+                    symbol += code[c];
+                    if (code[++c] == 'u')
+                    {
+                        // 97
+                        symbol += code[c];
+                        if (code[++c] == 't')
+                        {
+                            // 98
+                            rgx1 = new Regex(hyphen);
+                            if (rgx1.IsMatch(code[++c].ToString()))
+                            {
+                                // 99+
+                                rows++;
+                                isFound = true;
+                                frmMain.Self.dGridResults.Rows.Add("out", "out");
+                            }
+                            else if (!rgxId.IsMatch(code[c].ToString()))
+                            {
+                                rows++;
+                                isFound = true;
+                                output += "[ERROR] Invalid use of reserved word 'out'.\r\n";
+                                hasError = true;
+                                frmMain.Self.dGridResults.Rows.Add("out", "invalid");
+                                frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.BackColor =
+                                                        System.Drawing.Color.Red;
+                                frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.ForeColor =
+                                    System.Drawing.Color.White;
+                            }
+                        }
+                    }
+                }
+                else if (code[c] == 'r')
+                {
+                    // 100
+                    symbol += code[c];
+                    if (code[++c] == 'e')
+                    {
+                        // 101
+                        symbol += code[c];
+                        if (code[++c] == 'a')
+                        {
+                            // 102
+                            symbol += code[c];
+                            if (code[++c] == 'l')
+                            {
+                                // 103
+                                symbol += code[c];
+                                rgx1 = new Regex(space);
+                                if (rgx1.IsMatch(code[++c].ToString()))
+                                {
+                                    // 104+
+                                    rows++;
+                                    isFound = true;
+                                    frmMain.Self.dGridResults.Rows.Add("real", "real");
+                                }
+                                else if (!rgxId.IsMatch(code[c].ToString()))
+                                {
+                                    rows++;
+                                    isFound = true;
+                                    output += "[ERROR] Invalid use of reserved word 'real'.\r\n";
+                                    hasError = true;
+                                    frmMain.Self.dGridResults.Rows.Add("real", "invalid");
+                                    frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.BackColor =
+                                                            System.Drawing.Color.Red;
+                                    frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.ForeColor =
+                                        System.Drawing.Color.White;
+                                }
+                            }
+                        }
+                        else if (code[c] == 't')
+                        {
+                            // 105
+                            symbol += code[c];
+                            if (code[++c] == 'u')
+                            {
+                                // 106
+                                symbol += code[c];
+                                if (code[++c] == 'r')
+                                {
+                                    // 107
+                                    symbol += code[c];
+                                    if (code[++c] == 'n')
+                                    {
+                                        // 108
+                                        symbol += code[c];
+                                        rgx1 = new Regex(space);
+                                        if (rgx1.IsMatch(code[++c].ToString()))
+                                        {
+                                            // 109+
+                                            rows++;
+                                            isFound = true;
+                                            frmMain.Self.dGridResults.Rows.Add("return", "return");
+                                        }
+                                        else if (!rgxId.IsMatch(code[c].ToString()))
+                                        {
+                                            rows++;
+                                            isFound = true;
+                                            output += "[ERROR] Invalid use of reserved word 'return'.\r\n";
+                                            hasError = true;
+                                            frmMain.Self.dGridResults.Rows.Add("return", "invalid");
+                                            frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.BackColor =
+                                                                    System.Drawing.Color.Red;
+                                            frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.ForeColor =
+                                                System.Drawing.Color.White;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                else if (code[c] == 's')
+                {
+                    // 110
+                    symbol += code[c];
+                    if (code[++c] == 't')
+                    {
+                        // 111
+                        symbol += code[c];
+                        if (code[++c] == 'r')
+                        {
+                            // 112
+                            symbol += code[c];
+                            if (code[++c] == 'i')
+                            {
+                                // 113
+                                symbol += code[c];
+                                if (code[++c] == 'n')
+                                {
+                                    // 114
+                                    symbol += code[c];
+                                    if (code[++c] == 'g')
+                                    {
+                                        // 115
+                                        symbol += code[c];
+                                        rgx1 = new Regex(space);
+                                        if (rgx1.IsMatch(code[++c].ToString()))
+                                        {
+                                            // 116+
+                                            rows++;
+                                            isFound = true;
+                                            frmMain.Self.dGridResults.Rows.Add("string", "string");
+                                        }
+                                        else if (!rgxId.IsMatch(code[c].ToString()))
+                                        {
+                                            rows++;
+                                            isFound = true;
+                                            output += "[ERROR] Invalid use of reserved word 'string'.\r\n";
+                                            hasError = true;
+                                            frmMain.Self.dGridResults.Rows.Add("string", "invalid");
+                                            frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.BackColor =
+                                                                    System.Drawing.Color.Red;
+                                            frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.ForeColor =
+                                                System.Drawing.Color.White;
+                                        }
+                                    }
+                                }
+                            }
+                            else if (code[c] == 'l')
+                            {
+                                // 117
+                                symbol += code[c];
+                                if (code[++c] == 'e')
+                                {
+                                    // 118
+                                    symbol += code[c];
+                                    if (code[++c] == 'n')
+                                    {
+                                        // 119
+                                        symbol += code[c];
+                                        rgx1 = new Regex(delRW_4);
+                                        if (rgx1.IsMatch(code[++c].ToString()))
+                                        {
+                                            // 120+
+                                            rows++;
+                                            isFound = true;
+                                            frmMain.Self.dGridResults.Rows.Add("strlen", "strlen");
+                                        }
+                                        else if (!rgxId.IsMatch(code[c].ToString()))
+                                        {
+                                            rows++;
+                                            isFound = true;
+                                            output += "[ERROR] Invalid use of reserved word 'strlen'.\r\n";
+                                            hasError = true;
+                                            frmMain.Self.dGridResults.Rows.Add("strlen", "invalid");
+                                            frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.BackColor =
+                                                                    System.Drawing.Color.Red;
+                                            frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.ForeColor =
+                                                System.Drawing.Color.White;
+                                        }
+                                    }
+                                }
+                            }
+                            else if (code[c] == 'u')
+                            {
+                                // 121
+                                symbol += code[c];
+                                if (code[++c] == 'c')
+                                {
+                                    // 122
+                                    symbol += code[c];
+                                    if (code[++c] == 't')
+                                    {
+                                        // 123
+                                        rgx1 = new Regex(space);
+                                        if (rgx1.IsMatch(code[++c].ToString()))
+                                        {
+                                            // 124+
+                                            rows++;
+                                            isFound = true;
+                                            frmMain.Self.dGridResults.Rows.Add("struct", "struct");
+                                        }
+                                        else if (!rgxId.IsMatch(code[c].ToString()))
+                                        {
+                                            rows++;
+                                            isFound = true;
+                                            output += "[ERROR] Invalid use of reserved word 'struct'.\r\n";
+                                            hasError = true;
+                                            frmMain.Self.dGridResults.Rows.Add("struct", "invalid");
+                                            frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.BackColor =
+                                                                    System.Drawing.Color.Red;
+                                            frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.ForeColor =
+                                                System.Drawing.Color.White;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        else if (code[c] == 'o')
+                        {
+                            // 125
+                            symbol += code[c];
+                            if (code[++c] == 'p')
+                            {
+                                // 126
+                                symbol += code[c];
+                                rgx1 = new Regex(delRW_1);
+                                if (rgx1.IsMatch(code[++c].ToString()))
+                                {
+                                    // 127+
+                                    rows++;
+                                    isFound = true;
+                                    frmMain.Self.dGridResults.Rows.Add("stop", "stop");
+                                }
+                                else if (!rgxId.IsMatch(code[c].ToString()))
+                                {
+                                    rows++;
+                                    isFound = true;
+                                    output += "[ERROR] Invalid use of reserved word 'stop'.\r\n";
+                                    hasError = true;
+                                    frmMain.Self.dGridResults.Rows.Add("stop", "invalid");
+                                    frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.BackColor =
+                                                            System.Drawing.Color.Red;
+                                    frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.ForeColor =
+                                        System.Drawing.Color.White;
+                                }
+                            }
+                        }
+                    }
+                }
+                else if (code[c] == 't')
+                {
+                    // 128
+                    symbol += code[c];
+                    if (code[++c] == 'e')
+                    {
+                        // 129
+                        symbol += code[c];
+                        if (code[++c] == 's')
+                        {
+                            // 130
+                            symbol += code[c];
+                            if (code[++c] == 't')
+                            {
+                                // 131
+                                symbol += code[c];
+                                rgx1 = new Regex(delRW_3);
+                                if (rgx1.IsMatch(code[++c].ToString()))
+                                {
+                                    // 132+
+                                    rows++;
+                                    isFound = true;
+                                    frmMain.Self.dGridResults.Rows.Add("test", "test");
+                                }
+                                else if (!rgxId.IsMatch(code[c].ToString()))
+                                {
+                                    rows++;
+                                    isFound = true;
+                                    output += "[ERROR] Invalid use of reserved word 'test'.\r\n";
+                                    hasError = true;
+                                    frmMain.Self.dGridResults.Rows.Add("test", "invalid");
+                                    frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.BackColor =
+                                                            System.Drawing.Color.Red;
+                                    frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.ForeColor =
+                                        System.Drawing.Color.White;
+                                }
+                            }
+                        }
+                    }
+                    else if (code[c] == 'h')
+                    {
+                        // 133
+                        symbol += code[c];
+                        if (code[++c] == 'e')
+                        {
+                            // 134
+                            symbol += code[c];
+                            if (code[++c] == 'n')
+                            {
+                                // 135
+                                symbol += code[c];
+                                rgx1 = new Regex(delRW_3);
+                                if (rgx1.IsMatch(code[++c].ToString()))
+                                {
+                                    // 136+
+                                    rows++;
+                                    isFound = true;
+                                    frmMain.Self.dGridResults.Rows.Add("then", "then");
+                                }
+                                else if (!rgxId.IsMatch(code[c].ToString()))
+                                {
+                                    rows++;
+                                    isFound = true;
+                                    output += "[ERROR] Invalid use of reserved word 'then'.\r\n";
+                                    hasError = true;
+                                    frmMain.Self.dGridResults.Rows.Add("then", "invalid");
+                                    frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.BackColor =
+                                                            System.Drawing.Color.Red;
+                                    frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.ForeColor =
+                                        System.Drawing.Color.White;
+                                }
+                            }
+                        }
+                    }
+                    else if (code[c] == 'r')
+                    {
+                        // 137
+                        symbol += code[c];
+                        if (code[++c] == 'u')
+                        {
+                            // 138
+                            symbol += code[c];
+                            if (code[++c] == 'e')
+                            {
+                                // 139
+                                symbol += code[c];
+                                rgx1 = new Regex(delRW_1);
+                                if (rgx1.IsMatch(code[++c].ToString()))
+                                {
+                                    // 140+
+                                    rows++;
+                                    isFound = true;
+                                    frmMain.Self.dGridResults.Rows.Add("true", "true");
+                                }
+                                else if (!rgxId.IsMatch(code[c].ToString()))
+                                {
+                                    rows++;
+                                    isFound = true;
+                                    output += "[ERROR] Invalid use of reserved word 'true'.\r\n";
+                                    hasError = true;
+                                    frmMain.Self.dGridResults.Rows.Add("true", "invalid");
+                                    frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.BackColor =
+                                                            System.Drawing.Color.Red;
+                                    frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.ForeColor =
+                                        System.Drawing.Color.White;
+                                }
+                            }
+                        }
+                    }
+                    else if (code[c] == 'o')
+                    {
+                        // 141
+                        symbol += code[c];
+                        if (code[++c] == 'l')
+                        {
+                            // 142
+                            symbol += code[c];
+                            if (code[++c] == 'o')
+                            {
+                                // 143
+                                symbol += code[c];
+                                if (code[++c] == 'w')
+                                {
+                                    // 144
+                                    symbol += code[c];
+                                    if (code[++c] == 'e')
+                                    {
+                                        // 145
+                                        symbol += code[c];
+                                        if (code[++c] == 'r')
+                                        {
+                                            // 146
+                                            symbol += code[c];
+                                            rgx1 = new Regex(paren);
+                                            if (rgx1.IsMatch(code[++c].ToString()))
+                                            {
+                                                // 147+
+                                                rows++;
+                                                isFound = true;
+                                                frmMain.Self.dGridResults.Rows.Add("tolower", "tolower");
+                                            }
+                                            else if (!rgxId.IsMatch(code[c].ToString()))
+                                            {
+                                                rows++;
+                                                isFound = true;
+                                                output += "[ERROR] Invalid use of reserved word 'tolower'.\r\n";
+                                                hasError = true;
+                                                frmMain.Self.dGridResults.Rows.Add("tolower", "invalid");
+                                                frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.BackColor =
+                                                                        System.Drawing.Color.Red;
+                                                frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.ForeColor =
+                                                    System.Drawing.Color.White;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        else if (code[c] == 'u')
+                        {
+                            // 148
+                            symbol += code[c];
+                            if (code[++c] == 'p')
+                            {
+                                // 149
+                                symbol += code[c];
+                                if (code[++c] == 'p')
+                                {
+                                    // 150
+                                    symbol += code[c];
+                                    if (code[++c] == 'e')
+                                    {
+                                        // 151
+                                        symbol += code[c];
+                                        if (code[++c] == 'r')
+                                        {
+                                            // 152
+                                            symbol += code[c];
+                                            rgx1 = new Regex(paren);
+                                            if (rgx1.IsMatch(code[++c].ToString()))
+                                            {
+                                                // 153+
+                                                rows++;
+                                                isFound = true;
+                                                frmMain.Self.dGridResults.Rows.Add("toupper", "toupper");
+                                            }
+                                            else if (!rgxId.IsMatch(code[c].ToString()))
+                                            {
+                                                rows++;
+                                                isFound = true;
+                                                output += "[ERROR] Invalid use of reserved word 'toupper'.\r\n";
+                                                hasError = true;
+                                                frmMain.Self.dGridResults.Rows.Add("toupper", "invalid");
+                                                frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.BackColor =
+                                                                        System.Drawing.Color.Red;
+                                                frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.ForeColor =
+                                                    System.Drawing.Color.White;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                } else if (code[c] == 'u')
+                {
+                    // 154
+                    symbol += code[c];
+                    if (code[++c] == 'n')
+                    {
+                        // 155
+                        symbol += code[c];
+                        if (code[++c] == 't')
+                        {
+                            // 156
+                            symbol += code[c];
+                            if (code[++c] == 'i')
+                            {
+                                // 157
+                                symbol += code[c];
+                                if (code[++c] == 'l')
+                                {
+                                    // 158
+                                    symbol += code[c];
+                                    rgx1 = new Regex(delRW_4);
+                                    if (rgx1.IsMatch(code[++c].ToString()))
+                                    {
+                                        // 159+
+                                        rows++;
+                                        isFound = true;
+                                        frmMain.Self.dGridResults.Rows.Add("until", "until");
+                                    }
+                                    else if (!rgxId.IsMatch(code[c].ToString()))
+                                    {
+                                        rows++;
+                                        isFound = true;
+                                        output += "[ERROR] Invalid use of reserved word 'until'.\r\n";
+                                        hasError = true;
+                                        frmMain.Self.dGridResults.Rows.Add("until", "invalid");
+                                        frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.BackColor =
+                                                                System.Drawing.Color.Red;
+                                        frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.ForeColor =
+                                            System.Drawing.Color.White;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                } else if (code[c] == 'v')
+                {
+                    // 160
+                    symbol += code[c];
+                    if (code[++c] == 'o')
+                    {
+                        // 161
+                        symbol += code[c];
+                        if (code[++c] == 'i')
+                        {
+                            // 162
+                            symbol += code[c];
+                            if (code[++c] == 'd')
+                            {
+                                // 163
+                                symbol += code[c];
+                                rgx1 = new Regex(space);
+                                if (rgx1.IsMatch(code[++c].ToString()))
+                                {
+                                    // 164+
+                                    rows++;
+                                    isFound = true;
+                                    frmMain.Self.dGridResults.Rows.Add("void", "void");
+                                }
+                                else if (!rgxId.IsMatch(code[c].ToString()))
+                                {
+                                    rows++;
+                                    isFound = true;
+                                    output += "[ERROR] Invalid use of reserved word 'void'.\r\n";
+                                    hasError = true;
+                                    frmMain.Self.dGridResults.Rows.Add("void", "invalid");
+                                    frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.BackColor =
+                                                            System.Drawing.Color.Red;
+                                    frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.ForeColor =
+                                        System.Drawing.Color.White;
+                                }
+                            }
+                        }
+                    }
                 }
 
-                if (!isFound)
-                {
-                    rgx1 = new Regex(delid);
-                    rgx2 = new Regex("[a-z]|[A-Z]|[0-9]|_");
-                    int size = symbol.Length;
-
-                    while (true)
+                    if (!isFound)
                     {
-                        if (rgx2.IsMatch(code[c].ToString()))
+                        rgx1 = new Regex(delid);
+                        rgx2 = new Regex("[a-z]|[A-Z]|[0-9]|_");
+
+                        while (true)
                         {
-                            symbol += code[c];
-                            size++;
-                            c++;
-                        } else break;
-                    }
+                            if (rgx2.IsMatch(code[c].ToString()))
+                            {
+                                symbol += code[c];
+                                c++;
+                            }
+                            else break;
+                        }
 
-                    if (size > 10)
-                    {
-                        output += "[ERROR] Identifier '" + symbol + "' is beyond the " + 
-                            "prescribed identifier length (10 chars).\r\n";
-                        hasError = true;
-                        frmMain.Self.dGridResults.Rows.Add(symbol, "invalid");
-                        frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.BackColor =
-                                                System.Drawing.Color.Red;
-                        frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.ForeColor =
-                            System.Drawing.Color.White;
-                    } else if (rgxId.IsMatch(code[c].ToString()))
-                    {
-                        rows++;
-                        isFound = true;
-                        frmMain.Self.dGridResults.Rows.Add(symbol, "identifier");
-                    } else
-                    {
-                        rows++;
-                        isFound = true;
-                        output += "[ERROR] Invalid use of identifier '" + symbol + "'.\r\n";
-                        hasError = true;
-                        frmMain.Self.dGridResults.Rows.Add(symbol, "invalid");
-                        frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.BackColor =
-                                                System.Drawing.Color.Red;
-                        frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.ForeColor =
-                            System.Drawing.Color.White;
-                    }
+                        if (symbol.Length > 10)
+                        {
+                            output += "[ERROR] Identifier '" + symbol + "' is beyond the " +
+                                "prescribed identifier length (10 chars).\r\n";
+                            hasError = true;
+                            frmMain.Self.dGridResults.Rows.Add(symbol, "invalid");
+                            frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.BackColor =
+                                                    System.Drawing.Color.Red;
+                            frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.ForeColor =
+                                System.Drawing.Color.White;
+                        }
+                        else if (rgx1.IsMatch(code[c].ToString()))
+                        {
+                            rows++;
+                            isFound = true;
+                            frmMain.Self.dGridResults.Rows.Add(symbol, "identifier");
+                        }
+                        else
+                        {
+                            rows++;
+                            isFound = true;
+                            output += "[ERROR] Invalid use of identifier '" + symbol + "'.\r\n";
+                            hasError = true;
+                            frmMain.Self.dGridResults.Rows.Add(symbol, "invalid");
+                            frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.BackColor =
+                                                    System.Drawing.Color.Red;
+                            frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.ForeColor =
+                                System.Drawing.Color.White;
+                        }
                 }
             } catch
             {
