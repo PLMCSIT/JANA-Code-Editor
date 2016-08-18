@@ -131,10 +131,12 @@
             // 
             // txtOutput
             // 
+            this.txtOutput.Font = new System.Drawing.Font("Inconsolata", 9.749999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtOutput.Location = new System.Drawing.Point(7, 29);
             this.txtOutput.Multiline = true;
             this.txtOutput.Name = "txtOutput";
             this.txtOutput.ReadOnly = true;
+            this.txtOutput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtOutput.Size = new System.Drawing.Size(746, 88);
             this.txtOutput.TabIndex = 0;
             // 
@@ -146,7 +148,6 @@
             this.dGridResults.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.lexeme,
             this.token});
-            this.dGridResults.Enabled = false;
             this.dGridResults.Location = new System.Drawing.Point(521, 55);
             this.dGridResults.Name = "dGridResults";
             this.dGridResults.ReadOnly = true;

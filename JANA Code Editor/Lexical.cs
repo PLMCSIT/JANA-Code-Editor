@@ -666,6 +666,165 @@ namespace JANA_Code_Editor
                             frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.ForeColor =
                                 System.Drawing.Color.White;
                         }
+                    } else if (code[c] == 'n')
+                    {
+                        // 71
+                        symbol += code[c];
+                        if (code[++c] == 't')
+                        {
+                            // 72
+                            symbol += code[c];
+                            rgx1 = new Regex(space);
+                            if (rgx1.IsMatch(code[++c].ToString()))
+                            {
+                                // 73+
+                                rows++;
+                                isFound = true;
+                                frmMain.Self.dGridResults.Rows.Add("int", "int");
+                            } else if (!rgxId.IsMatch(code[c].ToString()))
+                            {
+                                rows++;
+                                isFound = true;
+                                output += "[ERROR] Invalid use of reserved word 'int'.\r\n";
+                                hasError = true;
+                                frmMain.Self.dGridResults.Rows.Add("int", "invalid");
+                                frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.BackColor =
+                                                        System.Drawing.Color.Red;
+                                frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.ForeColor =
+                                    System.Drawing.Color.White;
+                            }
+                        }
+                    } else if (code[c] == 't')
+                    {
+                        // 74
+                        symbol += code[c];
+                        if (code[++c] == 'e')
+                        {
+                            // 75
+                            symbol += code[c];
+                            if (code[++c] == 'r')
+                            {
+                                // 76
+                                symbol += code[c];
+                                if (code[++c] == 'a')
+                                {
+                                    // 77
+                                    symbol += code[c];
+                                    if (code[++c] == 't')
+                                    {
+                                        // 78
+                                        symbol += code[c];
+                                        if (code[++c] == 'e')
+                                        {
+                                            // 79
+                                            rgx1 = new Regex(delRW_4);
+                                            if (rgx1.IsMatch(code[c].ToString()))
+                                            {
+                                                // 80+
+                                                rows++;
+                                                isFound = true;
+                                                frmMain.Self.dGridResults.Rows.Add("iterate", "iterate");
+                                            }
+                                            else if (!rgxId.IsMatch(code[c].ToString()))
+                                            {
+                                                rows++;
+                                                isFound = true;
+                                                output += "[ERROR] Invalid use of reserved word 'iterate'.\r\n";
+                                                hasError = true;
+                                                frmMain.Self.dGridResults.Rows.Add("iterate", "invalid");
+                                                frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.BackColor =
+                                                                        System.Drawing.Color.Red;
+                                                frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.ForeColor =
+                                                    System.Drawing.Color.White;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                } else if (code[c] == 'm')
+                {
+                    // 81
+                    symbol += code[c];
+                    if (code[++c] == 'a')
+                    {
+                        // 82
+                        symbol += code[c];
+                        if (code[++c] == 'i')
+                        {
+                            // 83
+                            symbol += code[c];
+                            if (code[++c] == 'n')
+                            {
+                                // 84
+                                symbol += code[c];
+                                if (code[++c] == '(')
+                                {
+                                    // 85
+                                    symbol += code[c];
+                                    if (code[++c] == ')')
+                                    {
+                                        // 86
+                                        symbol += code[c];
+                                        rgx1 = new Regex(delRW_3);
+                                        if (rgx1.IsMatch(code[++c].ToString()))
+                                        {
+                                            // 87+
+                                            rows++;
+                                            isFound = true;
+                                            frmMain.Self.dGridResults.Rows.Add("main()", "main()");
+                                        }
+                                        else if (!rgxId.IsMatch(code[c].ToString()))
+                                        {
+                                            rows++;
+                                            isFound = true;
+                                            output += "[ERROR] Invalid use of reserved word 'main()'.\r\n";
+                                            hasError = true;
+                                            frmMain.Self.dGridResults.Rows.Add("main()", "invalid");
+                                            frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.BackColor =
+                                                                    System.Drawing.Color.Red;
+                                            frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.ForeColor =
+                                                System.Drawing.Color.White;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                } else if (code[c] == 'n')
+                {
+                    // 88
+                    symbol += code[c];
+                    if (code[++c] == 'e')
+                    {
+                        // 89
+                        symbol += code[c];
+                        if (code[++c] == 'w')
+                        {
+                            // 90
+                            symbol += code[c];
+                            rgx1 = new Regex(delRW_1);
+                            if (rgx1.IsMatch(code[++c].ToString()))
+                            {
+                                // 91+
+                                rows++;
+                                isFound = true;
+                                frmMain.Self.dGridResults.Rows.Add("new", "new");
+                            }
+                            else if (!rgxId.IsMatch(code[c].ToString()))
+                            {
+                                rows++;
+                                isFound = true;
+                                output += "[ERROR] Invalid use of reserved word 'new'.\r\n";
+                                hasError = true;
+                                frmMain.Self.dGridResults.Rows.Add("new", "invalid");
+                                frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.BackColor =
+                                                        System.Drawing.Color.Red;
+                                frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.ForeColor =
+                                    System.Drawing.Color.White;
+                            }
+                        }
                     }
                 }
 
