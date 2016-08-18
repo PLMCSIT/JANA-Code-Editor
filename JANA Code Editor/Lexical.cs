@@ -1610,6 +1610,88 @@ namespace JANA_Code_Editor
                         frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.ForeColor =
                             System.Drawing.Color.White;
                     }
+                } else if (code[c] == '/')
+                {
+                    // 173
+                    symbol += code[c];
+                    rgx1 = new Regex(delSY_1);
+                    if (rgx1.IsMatch(code[++c].ToString()))
+                    {
+                        // 174+
+                        rows++;
+                        isFound = true;
+                        frmMain.Self.dGridResults.Rows.Add(symbol, symbol);
+                    } else if (code[c] == '/')
+                    {
+                        do
+                        {
+                            c++;
+
+                            // States 173 through 174+ are deemed ignored for as long as their
+                            // line remains unbroken by either a T_RETURN_CARRIAGE (\r)
+                            // or a T_NEWLINE (\n).
+                        } while (code[c] != '\r' || code[c] != '\n');
+                    } else if (code[c] == '#')
+                    {
+                        // 177
+                        while (code[++c] != '#')
+                        {
+                            if (code[++c] == '/') break;
+
+                            // I'll intentionally leave block_comments valid regardless for
+                            // as long as they're closed. Lookaheads for comments don't make
+                            // sense in many P/Ls (e.g. C#)
+
+                            // States 177 through 183+ are deemed ignored as per the principles
+                            // of P/L "comments".
+                        }
+                    }
+                    else
+                    {
+                        rows++;
+                        isFound = true;
+                        output += "[ERROR] Invalid use of reserved symbol '" + symbol + "'.\r\n";
+                        hasError = true;
+                        frmMain.Self.dGridResults.Rows.Add(symbol, "invalid");
+                        frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.BackColor =
+                                                System.Drawing.Color.Red;
+                        frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.ForeColor =
+                            System.Drawing.Color.White;
+                    }
+                } 
+
+                // I'm ignoring escape sequences altogether. They will be parsed in the context
+                // of their string parser.
+
+                else if (code[c] == '%')
+                {
+                    // 186
+                    symbol += code[c];
+                    rgx1 = new Regex(delSY_1);
+                    if (rgx1.IsMatch(code[++c].ToString()))
+                    {
+                        // 187+
+                        rows++;
+                        isFound = true;
+                        frmMain.Self.dGridResults.Rows.Add(symbol, symbol);
+                    }
+                    else
+                    {
+                        rows++;
+                        isFound = true;
+                        output += "[ERROR] Invalid use of reserved symbol '" + symbol + "'.\r\n";
+                        hasError = true;
+                        frmMain.Self.dGridResults.Rows.Add(symbol, "invalid");
+                        frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.BackColor =
+                                                System.Drawing.Color.Red;
+                        frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.ForeColor =
+                            System.Drawing.Color.White;
+                    }
+                } else if (code[c] == '*')
+                {
+                    // 188
+                    symbol += code[c];
+
                 }
 
                     if (!isFound)
