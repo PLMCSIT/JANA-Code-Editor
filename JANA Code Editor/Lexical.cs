@@ -2287,9 +2287,104 @@ namespace JANA_Code_Editor
                             }
                         }
                     }
+                } else if (code[c] == '\'')
+                {
+                    bool inGrid = false;
+                    while (code[++c] != '\'')
+                    {
+                        if (code[c] == '\r' || code[c] == '\n')
+                        {
+                            rows++;
+                            isFound = true;
+                            output += "[ERROR] \' expected. Did you mean to close the Char Literal?\r\n";
+                            hasError = true;
+                            frmMain.Self.dGridResults.Rows.Add(symbol, "invalid");
+                            frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.BackColor =
+                                                    System.Drawing.Color.Red;
+                            frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.ForeColor =
+                                System.Drawing.Color.White;
+                            inGrid = true;
+                            break;
+                        }
+                        else symbol += code[c];
+                    }
+
+                    rgx1 = new Regex(delch);
+
+                    if (symbol.Length > 1 || !rgx1.IsMatch(code[c].ToString()))
+                    {
+                        if (!inGrid)
+                        {
+                            isFound = true;
+                            output += "[ERROR] Invalid use of Char Literal '" + symbol + "'.\r\n";
+                            hasError = true;
+                            rows++;
+                            frmMain.Self.dGridResults.Rows.Add(symbol, "invalid");
+                            frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.BackColor =
+                                                    System.Drawing.Color.Red;
+                            frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.ForeColor =
+                                System.Drawing.Color.White;
+                            inGrid = true;
+                        }    
+                    } else
+                    {
+                        if (!inGrid)
+                        {
+                            rows++;
+                            isFound = true;
+                            frmMain.Self.dGridResults.Rows.Add(symbol, "char_literal");
+                        }
+                    }
+                } else if (code[c] == '\"')
+                {
+                    bool inGrid = false;
+                    while (code[++c] != '\"')
+                    {
+                        if (code[c] == '\r' || code[c] == '\n')
+                        {
+                            rows++;
+                            isFound = true;
+                            output += "[ERROR] \" expected. Did you mean to close the String Literal?\r\n";
+                            hasError = true;
+                            frmMain.Self.dGridResults.Rows.Add(symbol, "invalid");
+                            frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.BackColor =
+                                                    System.Drawing.Color.Red;
+                            frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.ForeColor =
+                                System.Drawing.Color.White;
+                            inGrid = true;
+                            break;
+                        } else symbol += code[c];
+                    }
+
+                    rgx1 = new Regex(delstr);
+
+                    if (rgx1.IsMatch(code[c].ToString()))
+                    {
+                        if (!inGrid)
+                        {
+                            rows++;
+                            isFound = true;
+                            frmMain.Self.dGridResults.Rows.Add(symbol, "string_literal");
+                        }
+                    } else
+                    {
+                        if (!inGrid)
+                        {
+                            isFound = true;
+                            output += "[ERROR] Invalid used of String Literal '" + symbol + "'.\r\n";
+                            hasError = true;
+                            rows++;
+                            frmMain.Self.dGridResults.Rows.Add(symbol, "invalid");
+                            frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.BackColor =
+                                                    System.Drawing.Color.Red;
+                            frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.ForeColor =
+                                System.Drawing.Color.White;
+                            inGrid = true;
+                        }
+                    }
                 }
 
-                    if (!isFound)
+                    if (!isFound && !char.IsWhiteSpace(code[c]))
                     {
                         rgx1 = new Regex(delid);
                         rgx2 = new Regex("[a-z]|[A-Z]|[0-9]|_");
