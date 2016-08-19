@@ -184,7 +184,7 @@ namespace JANA_Code_Editor
                                             // 7
                                             symbol += code[c];
                                             rgx1 = new Regex(delRW_3);
-                                            if (rgx1.IsMatch(code[++c].ToString()))
+                                            if (rgx1.IsMatch(code[c + 1].ToString()))
                                             {
                                                 // 8+
                                                 rows++;
@@ -239,7 +239,7 @@ namespace JANA_Code_Editor
                                             // 15
                                             symbol += code[c];
                                             rgx1 = new Regex(space);
-                                            if (rgx1.IsMatch(code[++c].ToString()))
+                                            if (rgx1.IsMatch(code[c + 1].ToString()))
                                             {
                                                 // 16+
                                                 rows++;
@@ -282,7 +282,7 @@ namespace JANA_Code_Editor
                                 // 20
                                 symbol += code[c];
                                 rgx1 = new Regex(space);
-                                if (rgx1.IsMatch(code[++c].ToString()))
+                                if (rgx1.IsMatch(code[c + 1].ToString()))
                                 {
                                     // 21+
                                     rows++;
@@ -320,7 +320,7 @@ namespace JANA_Code_Editor
                                         // 25
                                         symbol += code[c];
                                         rgx1 = new Regex(delRW_2);
-                                        if (rgx1.IsMatch(code[++c].ToString()))
+                                        if (rgx1.IsMatch(code[c + 1].ToString()))
                                         {
                                             // 26+
                                             rows++;
@@ -361,7 +361,7 @@ namespace JANA_Code_Editor
                                     // 30
                                     symbol += code[c];
                                     rgx1 = new Regex(paren);
-                                    if (rgx1.IsMatch(code[++c].ToString()))
+                                    if (rgx1.IsMatch(code[c + 1].ToString()))
                                     {
                                         // 31+
                                         rows++;
@@ -394,7 +394,7 @@ namespace JANA_Code_Editor
                         // 33
                         symbol += code[c];
                         rgx1 = new Regex(delRW_3);
-                        if (rgx1.IsMatch(code[++c].ToString()))
+                        if (rgx1.IsMatch(code[c + 1].ToString()))
                         {
                             // 34
                             rows++;
@@ -440,7 +440,7 @@ namespace JANA_Code_Editor
                                     {
                                         // 41
                                         symbol += code[c];
-                                        if (rgx1.IsMatch(code[++c].ToString()))
+                                        if (rgx1.IsMatch(code[c + 1].ToString()))
                                         {
                                             // 42+
                                             rows++;
@@ -504,7 +504,7 @@ namespace JANA_Code_Editor
                                         // 47
                                         symbol += code[c];
                                         rgx1 = new Regex(delRW_1);
-                                        if (rgx1.IsMatch(code[++c].ToString()))
+                                        if (rgx1.IsMatch(code[c + 1].ToString()))
                                         {
                                             // 48+
                                             rows++;
@@ -546,7 +546,7 @@ namespace JANA_Code_Editor
                                 // 52
                                 symbol += code[c];
                                 rgx1 = new Regex(delRW_2);
-                                if (rgx1.IsMatch(code[++c].ToString()))
+                                if (rgx1.IsMatch(code[c + 1].ToString()))
                                 {
                                     // 53+
                                     rows++;
@@ -575,7 +575,7 @@ namespace JANA_Code_Editor
                                     // 55
                                     symbol += code[c];
                                     rgx1 = new Regex(delRW_1);
-                                    if (rgx1.IsMatch(code[++c].ToString()))
+                                    if (rgx1.IsMatch(code[c + 1].ToString()))
                                     {
                                         // 56+
                                         rows++;
@@ -612,7 +612,7 @@ namespace JANA_Code_Editor
                             // 59
                             symbol += code[c];
                             rgx1 = new Regex(hyphen);
-                            if (rgx1.IsMatch(code[++c].ToString()))
+                            if (rgx1.IsMatch(code[c + 1].ToString()))
                             {
                                 // 60+
                                 rows++;
@@ -631,8 +631,6 @@ namespace JANA_Code_Editor
                                 frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.ForeColor =
                                     System.Drawing.Color.White;
                             }
-
-                            c--;
                         }
                     }
                 }
@@ -661,7 +659,7 @@ namespace JANA_Code_Editor
                                         // 66
                                         symbol += code[c];
                                         rgx1 = new Regex(delRW_3);
-                                        if (rgx1.IsMatch(code[++c].ToString()))
+                                        if (rgx1.IsMatch(code[c + 1].ToString()))
                                         {
                                             // 67+
                                             rows++;
@@ -695,7 +693,7 @@ namespace JANA_Code_Editor
                         // 69
                         symbol += code[c];
                         rgx1 = new Regex(delRW_4);
-                        if (rgx1.IsMatch(code[++c].ToString()))
+                        if (rgx1.IsMatch(code[c + 1].ToString()))
                         {
                             // 70+
                             rows++;
@@ -724,7 +722,7 @@ namespace JANA_Code_Editor
                             // 72
                             symbol += code[c];
                             rgx1 = new Regex(space);
-                            if (rgx1.IsMatch(code[++c].ToString()))
+                            if (rgx1.IsMatch(code[c + 1].ToString()))
                             {
                                 // 73+
                                 rows++;
@@ -769,7 +767,7 @@ namespace JANA_Code_Editor
                                         {
                                             // 79
                                             rgx1 = new Regex(delRW_4);
-                                            if (rgx1.IsMatch(code[c].ToString()))
+                                            if (rgx1.IsMatch(code[c + 1].ToString()))
                                             {
                                                 // 80+
                                                 rows++;
@@ -820,7 +818,7 @@ namespace JANA_Code_Editor
                                         // 86
                                         symbol += code[c];
                                         rgx1 = new Regex(delRW_3);
-                                        if (rgx1.IsMatch(code[++c].ToString()))
+                                        if (rgx1.IsMatch(code[c + 1].ToString()))
                                         {
                                             // 87+
                                             rows++;
@@ -858,7 +856,7 @@ namespace JANA_Code_Editor
                             // 90
                             symbol += code[c];
                             rgx1 = new Regex(delRW_1);
-                            if (rgx1.IsMatch(code[++c].ToString()))
+                            if (rgx1.IsMatch(code[c + 1].ToString()))
                             {
                                 // 91+
                                 rows++;
@@ -892,7 +890,7 @@ namespace JANA_Code_Editor
                                 // 94
                                 symbol += code[c];
                                 rgx1 = new Regex(delRW_1);
-                                if (rgx1.IsMatch(code[++c].ToString()))
+                                if (rgx1.IsMatch(code[c + 1].ToString()))
                                 {
                                     // 95+
                                     rows++;
@@ -927,7 +925,7 @@ namespace JANA_Code_Editor
                         {
                             // 98
                             rgx1 = new Regex(hyphen);
-                            if (rgx1.IsMatch(code[++c].ToString()))
+                            if (rgx1.IsMatch(code[c + 1].ToString()))
                             {
                                 // 99+
                                 rows++;
@@ -966,7 +964,7 @@ namespace JANA_Code_Editor
                                 // 103
                                 symbol += code[c];
                                 rgx1 = new Regex(space);
-                                if (rgx1.IsMatch(code[++c].ToString()))
+                                if (rgx1.IsMatch(code[c + 1].ToString()))
                                 {
                                     // 104+
                                     rows++;
@@ -1004,7 +1002,7 @@ namespace JANA_Code_Editor
                                         // 108
                                         symbol += code[c];
                                         rgx1 = new Regex(space);
-                                        if (rgx1.IsMatch(code[++c].ToString()))
+                                        if (rgx1.IsMatch(code[c + 1].ToString()))
                                         {
                                             // 109+
                                             rows++;
@@ -1054,7 +1052,7 @@ namespace JANA_Code_Editor
                                         // 115
                                         symbol += code[c];
                                         rgx1 = new Regex(space);
-                                        if (rgx1.IsMatch(code[++c].ToString()))
+                                        if (rgx1.IsMatch(code[c + 1].ToString()))
                                         {
                                             // 116+
                                             rows++;
@@ -1089,7 +1087,7 @@ namespace JANA_Code_Editor
                                         // 119
                                         symbol += code[c];
                                         rgx1 = new Regex(delRW_4);
-                                        if (rgx1.IsMatch(code[++c].ToString()))
+                                        if (rgx1.IsMatch(code[c + 1].ToString()))
                                         {
                                             // 120+
                                             rows++;
@@ -1123,7 +1121,7 @@ namespace JANA_Code_Editor
                                     {
                                         // 123
                                         rgx1 = new Regex(space);
-                                        if (rgx1.IsMatch(code[++c].ToString()))
+                                        if (rgx1.IsMatch(code[c + 1].ToString()))
                                         {
                                             // 124+
                                             rows++;
@@ -1155,7 +1153,7 @@ namespace JANA_Code_Editor
                                 // 126
                                 symbol += code[c];
                                 rgx1 = new Regex(delRW_1);
-                                if (rgx1.IsMatch(code[++c].ToString()))
+                                if (rgx1.IsMatch(code[c + 1].ToString()))
                                 {
                                     // 127+
                                     rows++;
@@ -1195,7 +1193,7 @@ namespace JANA_Code_Editor
                                 // 131
                                 symbol += code[c];
                                 rgx1 = new Regex(delRW_3);
-                                if (rgx1.IsMatch(code[++c].ToString()))
+                                if (rgx1.IsMatch(code[c + 1].ToString()))
                                 {
                                     // 132+
                                     rows++;
@@ -1230,7 +1228,7 @@ namespace JANA_Code_Editor
                                 // 135
                                 symbol += code[c];
                                 rgx1 = new Regex(delRW_3);
-                                if (rgx1.IsMatch(code[++c].ToString()))
+                                if (rgx1.IsMatch(code[c + 1].ToString()))
                                 {
                                     // 136+
                                     rows++;
@@ -1265,7 +1263,7 @@ namespace JANA_Code_Editor
                                 // 139
                                 symbol += code[c];
                                 rgx1 = new Regex(delRW_1);
-                                if (rgx1.IsMatch(code[++c].ToString()))
+                                if (rgx1.IsMatch(code[c + 1].ToString()))
                                 {
                                     // 140+
                                     rows++;
@@ -1312,7 +1310,7 @@ namespace JANA_Code_Editor
                                             // 146
                                             symbol += code[c];
                                             rgx1 = new Regex(paren);
-                                            if (rgx1.IsMatch(code[++c].ToString()))
+                                            if (rgx1.IsMatch(code[c + 1].ToString()))
                                             {
                                                 // 147+
                                                 rows++;
@@ -1357,7 +1355,7 @@ namespace JANA_Code_Editor
                                             // 152
                                             symbol += code[c];
                                             rgx1 = new Regex(paren);
-                                            if (rgx1.IsMatch(code[++c].ToString()))
+                                            if (rgx1.IsMatch(code[c + 1].ToString()))
                                             {
                                                 // 153+
                                                 rows++;
@@ -1403,7 +1401,7 @@ namespace JANA_Code_Editor
                                     // 158
                                     symbol += code[c];
                                     rgx1 = new Regex(delRW_4);
-                                    if (rgx1.IsMatch(code[++c].ToString()))
+                                    if (rgx1.IsMatch(code[c + 1].ToString()))
                                     {
                                         // 159+
                                         rows++;
@@ -1443,7 +1441,7 @@ namespace JANA_Code_Editor
                                 // 163
                                 symbol += code[c];
                                 rgx1 = new Regex(space);
-                                if (rgx1.IsMatch(code[++c].ToString()))
+                                if (rgx1.IsMatch(code[c + 1].ToString()))
                                 {
                                     // 164+
                                     rows++;
@@ -1474,7 +1472,7 @@ namespace JANA_Code_Editor
                     symbol += code[c];
                     rgx1 = new Regex(delSY_1);
                     rgx2 = new Regex(otherSY1);
-                    if (rgx1.IsMatch(code[++c].ToString()))
+                    if (rgx1.IsMatch(code[c + 1].ToString()))
                     {
                         // 162+
                         rows++;
@@ -1485,7 +1483,7 @@ namespace JANA_Code_Editor
                         // 163
                         symbol += code[c];
                         rgx2 = new Regex(delSY_2);
-                        if (rgx2.IsMatch(code[++c].ToString()))
+                        if (rgx2.IsMatch(code[c + 1].ToString()))
                         {
                             // 164+
                             rows++;
@@ -1521,7 +1519,7 @@ namespace JANA_Code_Editor
                     symbol += code[c];
                     rgx1 = new Regex(delSY_1);
                     rgx2 = new Regex(otherSY2);
-                    if (rgx1.IsMatch(code[++c].ToString()))
+                    if (rgx1.IsMatch(code[c + 1].ToString()))
                     {
                         // 166+
                         rows++;
@@ -1532,7 +1530,7 @@ namespace JANA_Code_Editor
                         // 167
                         symbol += code[c];
                         rgx1 = new Regex(delSY_2);
-                        if (rgx1.IsMatch(code[++c].ToString()))
+                        if (rgx1.IsMatch(code[c + 1].ToString()))
                         {
                             // 168+
                             rows++;
@@ -1556,7 +1554,7 @@ namespace JANA_Code_Editor
                         // 169
                         symbol += code[c];
                         rgx2 = new Regex(delSY_6);
-                        if (rgx2.IsMatch(code[++c].ToString()))
+                        if (rgx2.IsMatch(code[c + 1].ToString()))
                         {
                             // 170+
                             rows++;
@@ -1566,7 +1564,7 @@ namespace JANA_Code_Editor
                         {
                             // 171
                             symbol += code[c];
-                            if (rgx2.IsMatch(code[++c].ToString()))
+                            if (rgx2.IsMatch(code[c + 1].ToString()))
                             {
                                 // 172+
                                 rows++;
@@ -1615,7 +1613,7 @@ namespace JANA_Code_Editor
                     // 173
                     symbol += code[c];
                     rgx1 = new Regex(delSY_1);
-                    if (rgx1.IsMatch(code[++c].ToString()))
+                    if (rgx1.IsMatch(code[c + 1].ToString()))
                     {
                         // 174+
                         rows++;
@@ -1668,7 +1666,7 @@ namespace JANA_Code_Editor
                     // 186
                     symbol += code[c];
                     rgx1 = new Regex(delSY_1);
-                    if (rgx1.IsMatch(code[++c].ToString()))
+                    if (rgx1.IsMatch(code[c + 1].ToString()))
                     {
                         // 187+
                         rows++;
@@ -1691,7 +1689,482 @@ namespace JANA_Code_Editor
                 {
                     // 188
                     symbol += code[c];
-
+                    rgx1 = new Regex(delSY_1);
+                    if (rgx1.IsMatch(code[c + 1].ToString()))
+                    {
+                        // 189+
+                        rows++;
+                        isFound = true;
+                        frmMain.Self.dGridResults.Rows.Add(symbol, symbol);
+                    }
+                    else
+                    {
+                        rows++;
+                        isFound = true;
+                        output += "[ERROR] Invalid use of reserved symbol '" + symbol + "'.\r\n";
+                        hasError = true;
+                        frmMain.Self.dGridResults.Rows.Add(symbol, "invalid");
+                        frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.BackColor =
+                                                System.Drawing.Color.Red;
+                        frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.ForeColor =
+                            System.Drawing.Color.White;
+                    }
+                } else if (code[c] == '^')
+                {
+                    // 190
+                    symbol += code[c];
+                    rgx1 = new Regex(digit);
+                    if (rgx1.IsMatch(code[c + 1].ToString()))
+                    {
+                        // 191+
+                        rows++;
+                        isFound = true;
+                        frmMain.Self.dGridResults.Rows.Add(symbol, symbol);
+                    }
+                    else
+                    {
+                        rows++;
+                        isFound = true;
+                        output += "[ERROR] Invalid use of reserved symbol '" + symbol + "'.\r\n";
+                        hasError = true;
+                        frmMain.Self.dGridResults.Rows.Add(symbol, "invalid");
+                        frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.BackColor =
+                                                System.Drawing.Color.Red;
+                        frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.ForeColor =
+                            System.Drawing.Color.White;
+                    }
+                } else if (code[c] == '~')
+                {
+                    // 192
+                    symbol += code[c];
+                    rgx1 = new Regex(delSY_3);
+                    if (rgx1.IsMatch(code[c + 1].ToString()))
+                    {
+                        // 193+
+                        rows++;
+                        isFound = true;
+                        frmMain.Self.dGridResults.Rows.Add(symbol, symbol);
+                    }
+                    else
+                    {
+                        rows++;
+                        isFound = true;
+                        output += "[ERROR] Invalid use of reserved symbol '" + symbol + "'.\r\n";
+                        hasError = true;
+                        frmMain.Self.dGridResults.Rows.Add(symbol, "invalid");
+                        frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.BackColor =
+                                                System.Drawing.Color.Red;
+                        frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.ForeColor =
+                            System.Drawing.Color.White;
+                    }
+                } else if (code[c] == '@')
+                {
+                    // 194
+                    symbol += code[c];
+                    if (code[++c] == '@')
+                    {
+                        // 195
+                        symbol += code[c];
+                        rgx1 = new Regex(delSY_2);
+                        if (rgx1.IsMatch(code[c + 1].ToString()))
+                        {
+                            // 196+
+                            rows++;
+                            isFound = true;
+                            frmMain.Self.dGridResults.Rows.Add(symbol, symbol);
+                        }
+                        else
+                        {
+                            rows++;
+                            isFound = true;
+                            output += "[ERROR] Invalid use of reserved symbol '" + symbol + "'.\r\n";
+                            hasError = true;
+                            frmMain.Self.dGridResults.Rows.Add(symbol, "invalid");
+                            frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.BackColor =
+                                                    System.Drawing.Color.Red;
+                            frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.ForeColor =
+                                System.Drawing.Color.White;
+                        }
+                    }
+                } else if (code[c] == '$')
+                {
+                    // 197
+                    symbol += code[c];
+                    rgx1 = new Regex("\\w");
+                    if (code[++c] == '$')
+                    {
+                        // 199
+                        symbol += code[c];
+                        rgx1 = new Regex(delSY_2);
+                        if (rgx1.IsMatch(code[c + 1].ToString()))
+                        {
+                            // 200
+                            rows++;
+                            isFound = true;
+                            frmMain.Self.dGridResults.Rows.Add(symbol, symbol);
+                        }
+                        else
+                        {
+                            rows++;
+                            isFound = true;
+                            output += "[ERROR] Invalid use of reserved symbol '" + symbol + "'.\r\n";
+                            hasError = true;
+                            frmMain.Self.dGridResults.Rows.Add(symbol, "invalid");
+                            frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.BackColor =
+                                                    System.Drawing.Color.Red;
+                            frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.ForeColor =
+                                System.Drawing.Color.White;
+                        }
+                    } else if (rgx1.IsMatch(code[c].ToString()))
+                    {
+                        // 198+
+                        rows++;
+                        isFound = true;
+                        frmMain.Self.dGridResults.Rows.Add(symbol, symbol);
+                    }
+                    else
+                    {
+                        rows++;
+                        isFound = true;
+                        output += "[ERROR] Invalid use of reserved symbol '" + symbol + "'.\r\n";
+                        hasError = true;
+                        frmMain.Self.dGridResults.Rows.Add(symbol, "invalid");
+                        frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.BackColor =
+                                                System.Drawing.Color.Red;
+                        frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.ForeColor =
+                            System.Drawing.Color.White;
+                    }
+                } else if (code[c] == '=')
+                {
+                    // 201
+                    symbol += code[c];
+                    rgx1 = new Regex(relop);
+                    if (rgx1.IsMatch(code[c + 1].ToString()))
+                    {
+                        // 202
+                        rgx1 = new Regex(delSY_3);
+                        symbol += code[c];
+                        if (rgx1.IsMatch(code[c + 1].ToString()))
+                        {
+                            // 203+
+                            rows++;
+                            isFound = true;
+                            frmMain.Self.dGridResults.Rows.Add(symbol, symbol);
+                        }
+                        else
+                        {
+                            rows++;
+                            isFound = true;
+                            output += "[ERROR] Invalid use of reserved symbol '" + symbol + "'.\r\n";
+                            hasError = true;
+                            frmMain.Self.dGridResults.Rows.Add(symbol, "invalid");
+                            frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.BackColor =
+                                                    System.Drawing.Color.Red;
+                            frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.ForeColor =
+                                System.Drawing.Color.White;
+                        }
+                    }
+                } else if (code[c] == '>')
+                {
+                    // 204
+                    symbol += code[c];
+                    if (code[++c] == '>')
+                    {
+                        // 205
+                        symbol += code[c];
+                        rgx1 = new Regex(delSY_3);
+                        if (rgx1.IsMatch(code[c + 1].ToString()))
+                        {
+                            // 206+
+                            rows++;
+                            isFound = true;
+                            frmMain.Self.dGridResults.Rows.Add(symbol, symbol);
+                        } else if (code[c] == '=')
+                        {
+                            // 207
+                            symbol += code[c];
+                            rgx1 = new Regex(delSY_3);
+                            if (rgx1.IsMatch(code[c + 1].ToString()))
+                            {
+                                // 208+
+                                rows++;
+                                isFound = true;
+                                frmMain.Self.dGridResults.Rows.Add(symbol, symbol);
+                            }
+                            else
+                            {
+                                rows++;
+                                isFound = true;
+                                output += "[ERROR] Invalid use of reserved symbol '" + symbol + "'.\r\n";
+                                hasError = true;
+                                frmMain.Self.dGridResults.Rows.Add(symbol, "invalid");
+                                frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.BackColor =
+                                                        System.Drawing.Color.Red;
+                                frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.ForeColor =
+                                    System.Drawing.Color.White;
+                            }
+                        } else
+                        {
+                            rows++;
+                            isFound = true;
+                            output += "[ERROR] Invalid use of reserved symbol '" + symbol + "'.\r\n";
+                            hasError = true;
+                            frmMain.Self.dGridResults.Rows.Add(symbol, "invalid");
+                            frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.BackColor =
+                                                    System.Drawing.Color.Red;
+                            frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.ForeColor =
+                                System.Drawing.Color.White;
+                        }
+                    }
+                } else if (code[c] == '<')
+                {
+                    // 209
+                    symbol += code[c];
+                    if (code[++c] == '<')
+                    {
+                        // 210
+                        symbol += code[c];
+                        rgx1 = new Regex(delSY_3);
+                        if (rgx1.IsMatch(code[c + 1].ToString()))
+                        {
+                            // 211+
+                            rows++;
+                            isFound = true;
+                            frmMain.Self.dGridResults.Rows.Add(symbol, symbol);
+                        } else if (code[c] == '=')
+                        {
+                            // 212
+                            symbol += code[c];
+                            rgx1 = new Regex(delSY_3);
+                            if (rgx1.IsMatch(code[c + 1].ToString()))
+                            {
+                                // 213+
+                                rows++;
+                                isFound = true;
+                                frmMain.Self.dGridResults.Rows.Add(symbol, symbol);
+                            }
+                            else
+                            {
+                                rows++;
+                                isFound = true;
+                                output += "[ERROR] Invalid use of reserved symbol '" + symbol + "'.\r\n";
+                                hasError = true;
+                                frmMain.Self.dGridResults.Rows.Add(symbol, "invalid");
+                                frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.BackColor =
+                                                        System.Drawing.Color.Red;
+                                frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.ForeColor =
+                                    System.Drawing.Color.White;
+                            }
+                        } else
+                        {
+                            rows++;
+                            isFound = true;
+                            output += "[ERROR] Invalid use of reserved symbol '" + symbol + "'.\r\n";
+                            hasError = true;
+                            frmMain.Self.dGridResults.Rows.Add(symbol, "invalid");
+                            frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.BackColor =
+                                                    System.Drawing.Color.Red;
+                            frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.ForeColor =
+                                System.Drawing.Color.White;
+                        }
+                    } else if (code[c] == '-')
+                    {
+                        // 214
+                        symbol += code[c];
+                        if (code[++c] == '-')
+                        {
+                            // 215
+                            symbol += code[c];
+                            rgx1 = new Regex(delSY_4);
+                            if (rgx1.IsMatch(code[c + 1].ToString()))
+                            {
+                                // 216+
+                                rows++;
+                                isFound = true;
+                                frmMain.Self.dGridResults.Rows.Add(symbol, symbol);
+                            }
+                            else
+                            {
+                                rows++;
+                                isFound = true;
+                                output += "[ERROR] Invalid use of reserved symbol '" + symbol + "'.\r\n";
+                                hasError = true;
+                                frmMain.Self.dGridResults.Rows.Add(symbol, "invalid");
+                                frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.BackColor =
+                                                        System.Drawing.Color.Red;
+                                frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.ForeColor =
+                                    System.Drawing.Color.White;
+                            }
+                        }
+                    }
+                } else if (code[c] == ',')
+                {
+                    // 217
+                    symbol += code[c];
+                    rgx1 = new Regex(delSY_4);
+                    if (rgx1.IsMatch(code[c + 1].ToString()))
+                    {
+                        // 218+
+                        rows++;
+                        isFound = true;
+                        frmMain.Self.dGridResults.Rows.Add(symbol, symbol);
+                    }
+                    else
+                    {
+                        rows++;
+                        isFound = true;
+                        output += "[ERROR] Invalid use of reserved symbol '" + symbol + "'.\r\n";
+                        hasError = true;
+                        frmMain.Self.dGridResults.Rows.Add(symbol, "invalid");
+                        frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.BackColor =
+                                                System.Drawing.Color.Red;
+                        frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.ForeColor =
+                            System.Drawing.Color.White;
+                    }
+                } else if (code[c] == ';')
+                {
+                    // 219
+                    symbol += code[c];
+                    rgx1 = new Regex(delSY_8);
+                    if (rgx1.IsMatch(code[c + 1].ToString()))
+                    {
+                        // 220+
+                        rows++;
+                        isFound = true;
+                        frmMain.Self.dGridResults.Rows.Add(symbol, symbol);
+                    }
+                    else
+                    {
+                        rows++;
+                        isFound = true;
+                        output += "[ERROR] Invalid use of reserved symbol '" + symbol + "'.\r\n";
+                        hasError = true;
+                        frmMain.Self.dGridResults.Rows.Add(symbol, "invalid");
+                        frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.BackColor =
+                                                System.Drawing.Color.Red;
+                        frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.ForeColor =
+                            System.Drawing.Color.White;
+                    }
+                } else if (code[c] == '{')
+                {
+                    // 221
+                    symbol += code[c];
+                    rgx1 = new Regex(delSY_6);
+                    if (rgx1.IsMatch(code[c + 1].ToString()))
+                    {
+                        // 222+
+                        rows++;
+                        isFound = true;
+                        frmMain.Self.dGridResults.Rows.Add(symbol, symbol);
+                    }
+                    else
+                    {
+                        rows++;
+                        isFound = true;
+                        output += "[ERROR] Invalid use of reserved symbol '" + symbol + "'.\r\n";
+                        hasError = true;
+                        frmMain.Self.dGridResults.Rows.Add(symbol, "invalid");
+                        frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.BackColor =
+                                                System.Drawing.Color.Red;
+                        frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.ForeColor =
+                            System.Drawing.Color.White;
+                    }
+                } else if (code[c] == '}')
+                {
+                    // 223
+                    symbol += code[c];
+                    rgx1 = new Regex(delSY_9);
+                    if (rgx1.IsMatch(code[c + 1].ToString()))
+                    {
+                        // 224+
+                        rows++;
+                        isFound = true;
+                        frmMain.Self.dGridResults.Rows.Add(symbol, symbol);
+                    }
+                    else
+                    {
+                        rows++;
+                        isFound = true;
+                        output += "[ERROR] Invalid use of reserved symbol '" + symbol + "'.\r\n";
+                        hasError = true;
+                        frmMain.Self.dGridResults.Rows.Add(symbol, "invalid");
+                        frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.BackColor =
+                                                System.Drawing.Color.Red;
+                        frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.ForeColor =
+                            System.Drawing.Color.White;
+                    }
+                } else if (code[c] == '(')
+                {
+                    // 225
+                    symbol += code[c];
+                    rgx1 = new Regex(delSY_11);
+                    if (rgx1.IsMatch(code[c + 1].ToString()))
+                    {
+                        // 226+
+                        rows++;
+                        isFound = true;
+                        frmMain.Self.dGridResults.Rows.Add(symbol, symbol);
+                    }
+                    else
+                    {
+                        rows++;
+                        isFound = true;
+                        output += "[ERROR] Invalid use of reserved symbol '" + symbol + "'.\r\n";
+                        hasError = true;
+                        frmMain.Self.dGridResults.Rows.Add(symbol, "invalid");
+                        frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.BackColor =
+                                                System.Drawing.Color.Red;
+                        frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.ForeColor =
+                            System.Drawing.Color.White;
+                    }
+                } else if (code[c] == ')')
+                {
+                    // 227
+                    symbol += code[c];
+                    rgx1 = new Regex(delSY_10);
+                    if (rgx1.IsMatch(code[c + 1].ToString()))
+                    {
+                        // 228+
+                        rows++;
+                        isFound = true;
+                        frmMain.Self.dGridResults.Rows.Add(symbol, symbol);
+                    }
+                    else
+                    {
+                        rows++;
+                        isFound = true;
+                        output += "[ERROR] Invalid use of reserved symbol '" + symbol + "'.\r\n";
+                        hasError = true;
+                        frmMain.Self.dGridResults.Rows.Add(symbol, "invalid");
+                        frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.BackColor =
+                                                System.Drawing.Color.Red;
+                        frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.ForeColor =
+                            System.Drawing.Color.White;
+                    }
+                } else if (code[c] == '#')
+                {
+                    // 229
+                    symbol += code[c];
+                    rgx1 = new Regex("\\w");
+                    if (rgx1.IsMatch(code[c + 1].ToString()))
+                    {
+                        // 230+
+                        rows++;
+                        isFound = true;
+                        frmMain.Self.dGridResults.Rows.Add(symbol, symbol);
+                    }
+                    else
+                    {
+                        rows++;
+                        isFound = true;
+                        output += "[ERROR] Invalid use of reserved symbol '" + symbol + "'.\r\n";
+                        hasError = true;
+                        frmMain.Self.dGridResults.Rows.Add(symbol, "invalid");
+                        frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.BackColor =
+                                                System.Drawing.Color.Red;
+                        frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.ForeColor =
+                            System.Drawing.Color.White;
+                    }
                 }
 
                     if (!isFound)
@@ -1738,7 +2211,6 @@ namespace JANA_Code_Editor
                             frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.ForeColor =
                                 System.Drawing.Color.White;
                         }
-                    c--;
                 }
             } catch
             {
