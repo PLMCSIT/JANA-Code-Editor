@@ -148,6 +148,8 @@ namespace JANA_Code_Editor
         {
             Regex rgx1, rgx2;
             Regex rgxId = new Regex(id);
+            Regex rgxDigitStart = new Regex("[1-9]");
+            Regex rgxDigit = new Regex("\\d");
             isFound = false;
             symbol = "";
 
@@ -2164,6 +2166,126 @@ namespace JANA_Code_Editor
                                                 System.Drawing.Color.Red;
                         frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.ForeColor =
                             System.Drawing.Color.White;
+                    }
+                } else if (rgxDigitStart.IsMatch(code[c].ToString()))
+                {
+                    symbol += code[c];
+                    bool inGrid = false;
+                    int intSize = 1;
+                    int floatSize = 0;
+                    if (code[c] == '~') intSize = 0; 
+                    
+                    while (rgxDigit.IsMatch(code[++c].ToString()))
+                    {
+                        symbol += code[c];
+                        intSize++;
+                    }
+
+                    if (code[c] == '.')
+                    {
+                        symbol += code[c];
+                        while (rgxDigit.IsMatch(code[++c].ToString()))
+                        {
+                            symbol += code[c];
+                            floatSize++;
+                        }
+
+                        if (intSize > 10 || floatSize > 4)
+                        {
+                            rows++;
+                            isFound = true;
+                            output += "[ERROR] Real Literal '" + symbol + "' exceeds permitted size/specification.\r\n";
+                            hasError = true;
+                            frmMain.Self.dGridResults.Rows.Add(symbol, "invalid");
+                            frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.BackColor =
+                                                    System.Drawing.Color.Red;
+                            frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.ForeColor =
+                                System.Drawing.Color.White;
+                            inGrid = true;
+                        }
+
+                        rgx1 = new Regex(delRW_1);
+                        if (!rgxDigit.IsMatch(code[c].ToString()) && code[c - 1] == '.')
+                        {
+                            if (!inGrid)
+                            {
+                                isFound = true;
+                                output += "[ERROR] Invalid use of Real Literal '" + symbol + "'.\r\n";
+                                hasError = true;
+                                rows++;
+                                frmMain.Self.dGridResults.Rows.Add(symbol, "invalid");
+                                frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.BackColor =
+                                                        System.Drawing.Color.Red;
+                                frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.ForeColor =
+                                    System.Drawing.Color.White;
+                                inGrid = true;
+                            }
+                        } else if (rgx1.IsMatch(code[c].ToString()))
+                        {
+                            if (!inGrid)
+                            {
+                                rows++;
+                                isFound = true;
+                                frmMain.Self.dGridResults.Rows.Add(symbol, "real_literal");
+                            }
+                        } else
+                        {
+                            if (!inGrid)
+                            {
+                                isFound = true;
+                                output += "[ERROR] Invalid use of Real Literal '" + symbol + "'.\r\n";
+                                hasError = true;
+                                rows++;
+                                frmMain.Self.dGridResults.Rows.Add(symbol, "invalid");
+                                frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.BackColor =
+                                                        System.Drawing.Color.Red;
+                                frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.ForeColor =
+                                    System.Drawing.Color.White;
+                                inGrid = true;
+                            }
+                        }
+                    } else
+                    {
+                        if (intSize > 10)
+                        {
+                            rows++;
+                            isFound = true;
+                            output += "[ERROR] Integer Literal '" + symbol + "' exceeds permitted size.\r\n";
+                            hasError = true;
+                            frmMain.Self.dGridResults.Rows.Add(symbol, "invalid");
+                            frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.BackColor =
+                                                    System.Drawing.Color.Red;
+                            frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.ForeColor =
+                                System.Drawing.Color.White;
+                            inGrid = true;
+                        }
+
+                        rgx1 = new Regex(delit);
+                        if (rgx1.IsMatch(code[c].ToString()))
+                        {
+                            if (!inGrid)
+                            {
+                                rows++;
+                                isFound = true;
+                                frmMain.Self.dGridResults.Rows.Add(symbol, "int_literal");
+                            }
+                        }
+                        else
+                        {
+                            if (!inGrid)
+                            {
+                                isFound = true;
+                                output += "[ERROR] Real Literal '" + symbol + "' exceeds permitted size/specification.\r\n";
+                                hasError = true;
+                                rows++;
+                                frmMain.Self.dGridResults.Rows.Add(symbol, "invalid");
+                                frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.BackColor =
+                                                        System.Drawing.Color.Red;
+                                frmMain.Self.dGridResults.Rows[rows - 1].DefaultCellStyle.ForeColor =
+                                    System.Drawing.Color.White;
+                                inGrid = true;
+                            }
+                        }
                     }
                 }
 
